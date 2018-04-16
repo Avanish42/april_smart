@@ -8,6 +8,7 @@ use App\model\ClearedChequeRegister;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
+use App\model\ChequePenaltyModel;
 
 
 class ChequeRegister extends Controller
@@ -16,13 +17,20 @@ class ChequeRegister extends Controller
 
     public function index(){
 
+        $temp_bank = ChequeRegisterModel::select('bank_name')->Completed()->distinct('bank_name')->get();
+        $bank_name=array();
+        foreach ($temp_bank as $k=>$v)
+        {
+            array_push($bank_name,$v->bank_name);
+        }
         $cheques = ChequeRegisterModel::all();
-        return view('Users.Cheque.cheque_register',compact('cheques'));
+        return view('Users.Cheque.cheque_register',compact('cheques','bank_name'));
     }
 
     public function chequeCompleted(){
 //        $cheques = ChequeRegisterModel::all();
-        return view('Users.Cheque.cheque_completed',compact('cheques'));
+        $penalties = ChequePenaltyModel::all();
+        return view('Users.Cheque.cheque_completed',compact('cheques','penalties'));
     }
 
     public function chequeCompletedPost(Request $request){
@@ -56,7 +64,7 @@ class ChequeRegister extends Controller
 
             $cheques =  ChequeRegisterModel::Completed()->Cleared()->UnBounced()
                     ->SearchCheque($search)
-                ->offset($start)
+                    ->offset($start)
                 ->limit($limit)
                 ->orderBy($order,$dir)
                 ->get();
@@ -128,6 +136,7 @@ class ChequeRegister extends Controller
         $bounce_check->amount = $cheque->amount;
         $bounce_check->billno = $cheque->billno;
         $bounce_check->allocationNo = $cheque->allocationNo;
+
         $bounce_check->save();
 
         //register check assignments

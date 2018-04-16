@@ -53,7 +53,8 @@ Route::post('complete-registered-check','Admin\ChequeRegister@completeRegistered
 
 Route::get('cheque-bounce','Admin\BounceChequeRegister@index');
 Route::get('penalty-detail/{id}','Admin\BounceChequeRegister@getPenaltyDetails');
-Route::post('update-bounce-check','Admin\BounceChequeRegister@updateBounceCheck');
+//Route::post('update-bounce-check','Admin\BounceChequeRegister@updateBounceCheck');
+Route::post('bounce-check-register-penalty','Admin\BounceChequeRegister@bounceCheckRegisterPenalty');
 Route::get('pending-bounce-cheque','Admin\BounceChequeRegister@pendingBounceCheque');
 
 

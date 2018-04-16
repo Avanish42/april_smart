@@ -64,8 +64,7 @@
                                             <div class="table-responsive">
                                                 <table class="table gray font-12 table-bordered">
                                                     <thead>
-
-                                                    <tr>
+                                                        <tr>
                                                         <th>Date</th>
                                                         <th>Retailer Name</th>
                                                         <th class="text-xs-right">Cheque Number</th>
@@ -89,9 +88,9 @@
                                                         <td>{{date('d-M-Y',strtotime($value_cheq->created_at)) }}</td>
                                                         <td>{{$value_cheq->retailer_name}}</td>
                                                         <td class="text-xs-right"><input type="text" name="cheque_number"></td>
-                                                        <td class="text-xs-right"><input type="text" name="Cheque_Date"></td>
+                                                        <td class="text-xs-right"><input type="text" class="cheque_datepicker" name="Cheque_Date"></td>
                                                         <td class="text-xs-right">{{$value_cheq->amount}}</td>
-                                                        <td><input type="text" name="bank_name"></td>
+                                                        <td><input type="text" name="bank_name" class="bank_name_suggest" autocomplete="off"></td>
                                                         <td>{{$value_cheq->amount}}</td>
                                                         <td>{{$value_cheq->billno}}</td>
                                                         <td>{{$value_cheq->allocationNo}}</td>

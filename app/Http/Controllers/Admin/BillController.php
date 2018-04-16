@@ -14,6 +14,7 @@ use App\model\Bill;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use View;
+use App\Model\BounceChequeAllocation;
 
 class BillController extends Controller
 {
@@ -82,11 +83,16 @@ class BillController extends Controller
             $Unallocateddata= Bill::select('billNo')->where('allocationNo','')->get();
 
             $Passbillsdata= Bill::select('billNo')->where('allocationNo','!=','')->get();
+            $uncleared_check_with_penalty = BounceChequeAllocation::select('cheque_number')->where('isAllocated',0)->where('isPast',0)->get();
 
-            $UnallocatedBills=array();
+            $UnallocatedBills=array();$UnallocatedCheques=array();
             foreach ($Unallocateddata as $k=>$v)
             {
                 array_push($UnallocatedBills,$v->billNo);
+            }
+            foreach ($uncleared_check_with_penalty as $k=>$v)
+            {
+                array_push($UnallocatedCheques,$v->cheque_number);
             }
 
             $pastallocationBills=array();
@@ -94,7 +100,7 @@ class BillController extends Controller
             {
                 array_push($pastallocationBills,$v->billNo);
             }
-            return view('Users.Manager.allocation', compact('staff', 'currentSupply','UnallocatedBills','pastallocationBills','pastSupply'));
+            return view('Users.Manager.allocation', compact('staff', 'currentSupply','UnallocatedBills','pastallocationBills','pastSupply','UnallocatedCheques'));
             }
             else {
             return redirect('manager-dashboard');

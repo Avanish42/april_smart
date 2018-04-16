@@ -130,4 +130,57 @@
     </div>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
+    <!-- Modal -->
+    <div id="penalty-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Penalty</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="penalty-form" method="post" action="{{url('bounce-check-register-penalty')}}">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">Email<span style="color: red">*</span>:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="penaltySelect" name="penalty_id">
+                                    <option value="">Please Select Penalty</option>
+                                    @foreach($penalties as $key_penalty => $value_penalty)
+                                        <option value="{{$value_penalty->id}}">{{$value_penalty->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Amount<span style="color: red">*</span>:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="" id="penalty_amount" placeholder="Amount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Remark:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="remark" placeholder="Remark">
+                                <input type="hidden" name="id" id="bounce_cheque_id" style="width:60px">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-warning">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 @endsection

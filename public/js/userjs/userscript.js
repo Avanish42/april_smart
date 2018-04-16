@@ -1,5 +1,12 @@
 $(document).ready(function() {
-
+    jQuery.browser = {};
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+    $('.cheque_datepicker').datepicker();
 
     $('#completed-cheque').DataTable({
         "bPaginate": true,
@@ -37,48 +44,24 @@ $(document).ready(function() {
         });
     }, 5000);
 
+    $('#penalty-modal').on('hidden.bs.modal', function () {
+        $(this).find("input[type=text], select").val("");
+    })
+
     $(document).on('click','#chequeBounce',function () {
-        if (confirm("Are you sure the cheque was bounce") == true) {
-
-            $('.loading').css("display", 'block');
-
             var id = $(this).attr('data-react-id');
+            $('#bounce_cheque_id').val(id)
             var that = $(this);
-            $.ajax({
-                type: "GET",
-                url: APP_URL + '/bounce-cheque/' + id,
-                data: id,
-                success: function (resultData) {
-
-                    if (resultData.code == 100) {
-
-
-                        $('p.successmessage').text(resultData.message);
-                        $('.ajaxsuccess').show();
-                        $('.alert-success').show();
-                        that.parent().closest('tr').remove();
-
-
-                    }
-                    $('.loading').css("display", 'none');
-
-                }
-            });
-
-
-
-
-        } else {
-            return false
-        }
+            $('#penalty-modal').modal('show');
     })
 
     $(document).on('change','#penaltySelect',function () {
      var that = $(this)
         var id = $(this).val();
             if(id == ''){
-                $(this).parent().next().find('.penaltyBox').val('');
-                // $('#penaltyBox').val('');
+                // $(this).parent().next().find('.penaltyBox').val('');
+                 $('#penalty_amount').val('');
+
             }
             else{
                 $('.loading').css("display", 'block');
@@ -87,8 +70,8 @@ $(document).ready(function() {
                     url: APP_URL + '/penalty-detail/' + id,
                     data: id,
                     success: function (resultData) {
-
-                        that.parent().next().find('.penaltyBox').val(resultData.amount);
+                        $('#penalty_amount').val(resultData.amount);
+                        // that.parent().next().find('.penaltyBox').val(resultData.amount);
                         $('.loading').css("display", 'none');
                     }
                 });
@@ -168,6 +151,14 @@ $(document).ready(function() {
 
     $('.pastallocation').typeahead({
         source: pastallocationBills
+    })
+
+    $('.bank_name_suggest').typeahead({
+        source: bankName
+    })
+
+    $('.pendingbouncecheque').typeahead({
+        source: unallocatedcheques
     })
 
     $(document).on('click', '#sync-all-bills', function () {

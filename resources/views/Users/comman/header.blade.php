@@ -21,6 +21,7 @@
     <link href="{{URL::asset('css/usercss/app.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/usercss/bootstrap-extended.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/usercss/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/usercss/jquery-ui.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/usercss/feathericon.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/usercss/climacons.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/usercss/horizontal-menu.min.css')}}" rel="stylesheet">

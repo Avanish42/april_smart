@@ -3,6 +3,7 @@
 <!-- Bootstrap Core Js -->
 <script src="{{URL::asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
 <script src="{{URL::asset('js/userjs/vendors.min.js')}}"></script>
+<script src="{{URL::asset('js/userjs/jquery-ui.min.js')}}"></script>
 <script src="{{URL::asset('js/userjs/jquery.sticky.js')}}"></script>
 <script src="{{URL::asset('js/userjs/icheck.min.js')}}"></script>
 <script src="{{URL::asset('js/userjs/app-menu.min.js')}}"></script>
@@ -19,59 +20,38 @@ var Bills = [];
 var Allocation = [];
 var UnallocatedBills = [];
 var pastallocationBills = [];
+var bankName = [];
+var unallocatedcheques = [];
 </script>
-@if(isset($billarray))
-
+@if(isset($UnallocatedCheques))
     <script type="text/javascript">
-
-
-        Bills = {!! json_encode($billarray) !!}
-        {{--var Allocation= {!! json_encode($allocationarray) !!}--}}
-
-
+        unallocatedcheques = {!! json_encode($UnallocatedCheques) !!}
     </script>
-
-
+@endif
+@if(isset($billarray))
+    <script type="text/javascript">
+       Bills = {!! json_encode($billarray) !!}
+    </script>
 @endif
 @if(isset($pastallocationBills))
-
     <script type="text/javascript">
-
-
         pastallocationBills = {!! json_encode($pastallocationBills) !!}
-        {{--var Allocation= {!! json_encode($allocationarray) !!}--}}
-
-
     </script>
-
-
 @endif
 @if(isset($UnallocatedBills))
-
     <script type="text/javascript">
-
-
         UnallocatedBills = {!! json_encode($UnallocatedBills) !!}
-        {{--var Allocation= {!! json_encode($allocationarray) !!}--}}
-
-
     </script>
-
-
 @endif
-
 @if(isset($allocationarray))
-
     <script type="text/javascript">
-
-
-        {{--        var Bills= {!! json_encode($billarray) !!}--}}
             Allocation = {!! json_encode($allocationarray) !!}
-
-
     </script>
-
-
+@endif
+@if(isset($bank_name))
+    <script type="text/javascript">
+        bankName = {!! json_encode($bank_name) !!}
+    </script>
 @endif
 
 
