@@ -68,7 +68,7 @@
                                                         <th>Reason</th>
                                                         <th>Penalty</th>
                                                         <th>Remark</th>
-                                                        <th>Action</th>
+                                                        {{--<th>Action</th>--}}
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -87,9 +87,9 @@
                                                                 <td>{{$penalty->name}}</td>
                                                                 <td>{{$penalty->amount}}</td>
                                                                 <td> {{$value_unclear->reason}}</td>
-                                                                <td>
-                                                                    <input type="submit" value="Update" class="btn btn-sm btn-primary">
-                                                                </td>
+                                                                {{--<td>--}}
+                                                                    {{--<input type="submit" value="Update" class="btn btn-sm btn-primary">--}}
+                                                                {{--</td>--}}
                                                             </form>
                                                         </tr>
                                                     @endforeach

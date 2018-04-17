@@ -104,5 +104,4 @@ class BounceChequeRegister extends Controller
         return view('Users.Cheque.pending_bounce_cheque',compact('uncleared_check_with_penalty'));
     }
 
-
 }

@@ -79,7 +79,6 @@ class BillController extends Controller
             $currentSupply = Bill::ByAllocationNo($allocation_no)->IsPastFalse()->get();
             $pastSupply = Bill::ByAllocationNo($allocation_no)->IsPastTrue()->get();
 
-//            dd($currentSupply);
             $Unallocateddata= Bill::select('billNo')->where('allocationNo','')->get();
 
             $Passbillsdata= Bill::select('billNo')->where('allocationNo','!=','')->get();

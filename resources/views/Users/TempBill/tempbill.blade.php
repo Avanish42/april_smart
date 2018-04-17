@@ -43,8 +43,27 @@
                         <div class="card-body collapse in">
                             <div class="card-block">
                                 <div class="card-text">
-
-                                    <div class="row">
+                                    @if ($errors->any())
+                                        <div class="row">
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    @endif
+                                        @if(session('status') && session('status') == 100)
+                                            <div class="row">
+                                                <div class="alert alert-success alert-dismissable">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <strong>Success!</strong> {{session('message')}}
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="row">
                                         <div class="col-sm-12">
                                             <div class="row">
                                                 <div class="col-sm-4 col-md-4">
@@ -305,21 +324,29 @@
             <table class="table mb-0 font-10 light-gray ">
 
                 <tr class="head">
-                    <td colspan="4"><div align="center">Add Product</div></td>
+                    <td colspan="5"><div align="center">Add Product</div></td>
                 </tr>
 
                 <tr class="gray">
                     <th>Product Name</th>
-                    <th>Product case </th>
-                    <th>Cash</th>
-                    <th>Pending</th>
+                    <th>Product Type</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
                 </tr>
-                <form action="" method="post">
+                <form action="{{url('addProduct')}}" method="post">
                 <tr>
-                    <td><input type="text" name="name" placeholder="Name"></td>
-                    <td><input type="text" name="type" placeholder="case/quantity"></td>
-                    <td><input type="text" name="price" placeholder="price"></td>
-                    <td><input type="reset" value="Reset" name="reset"> </td>
+                    {{csrf_field()}}
+                    <td><input type="text" name="item_name" placeholder="Name"></td>
+                    <td>
+                        <select name="item_type">
+                            <option value="">Please select Type</option>
+                            <option value="pieces">Pieces</option>
+                            <option value="box">Box</option>
+                        </select>
+                    </td>
+                    <td><input type="number" name="item_quantity"></td>
+                    <td><input type="number" name="item_price"></td>
                     <td> <input type="submit" value="Save" name="save"> </td>
                 </tr>
                 </form>
@@ -357,11 +384,17 @@
                             <th>Reset</th>
                             <th>Save</th>
                         </tr>
-                        <form action="" method="post">
+                        <form action="{{url('addRetailer')}}" method="post">
                             <tr>
-                                <td><input type="text" name="name" placeholder="Name "></td>
+                                {{csrf_field()}}
+                                <td><input type="text" name="retailer_name" placeholder="Retailer Name"></td>
                                 <td><input type="text" name="beat" placeholder="Beat"></td>
-                                <td><input type="reset" value=" Reset" name="save" > </td>
+                                <td><select name="salesman" >
+                                        <option value="">Select Sales Man</option>
+                                        @foreach($staff as $s)
+                                            <option value="{{$s['id']}}">{{$s['name']}}</option>
+                                        @endforeach
+                                    </select></td>
                                 <td> <input type="submit" value=" Save" name="save" > </td>
                             </tr>
                         </form>

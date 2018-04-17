@@ -343,7 +343,35 @@ function alertNotify(message){
             "id": data1,
             'allocation':data2
         }
+        $(document).on('click', '.bounceallocation', function (e) {
 
+            // console.log('pastallocationform');
+            e.preventDefault();
+            $('.loading').css("display", 'block');
+
+            var formpastData = $('.bouncechequeallocationform').serialize();
+            //console.log(formpastData);
+            //  return false;
+
+            $.ajax({
+                url: APP_URL + "/bounce-cheque-allocation",
+                type: "post",
+                data: formpastData,
+                success: function (resultData) {
+                    if (resultData.code == 400) {
+                        alertNotify(resultData.message);
+                    }
+                    else {
+                        $('#pastSupplyId').nextAll().remove();
+                        $('#pastSupplyId').after(resultData);
+
+                    }
+
+
+                    $('.loading').css("display", 'none');
+                }
+            });//ajax end
+        });
 
 
         $.ajax({

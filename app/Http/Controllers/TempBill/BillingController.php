@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TempBill;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class BillingController extends Controller
 {
@@ -16,8 +17,11 @@ class BillingController extends Controller
 
     public function tempBill()
     {
-        //dd("test");
-      return view('Users.TempBill.tempbill');
+        $staff = User::whereHas('roles', function ($q) {
+            $q->where('name', 'field');
+        })->get()->toArray();
+
+      return view('Users.TempBill.tempbill',compact('staff'));
 
     }
 
