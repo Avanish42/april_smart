@@ -15,6 +15,7 @@ class ItemController extends Controller
         $this->validate($request,[
             'item_name' => 'required',
             'item_type' => 'required',
+            'item_quantity' => "required_if:item_type,==,box",
             'item_price' => 'required',
         ]);
 

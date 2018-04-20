@@ -27,7 +27,6 @@ class BounceChequeRegister extends Controller
     {
         $penalty = ChequePenaltyModel::find($id);
          return Response::json($penalty);
-
     }
 
     public function updateBounceCheck(Request $request){

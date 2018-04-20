@@ -12,6 +12,7 @@
 <script src="{{URL::asset('js/userjs/bootstrap-typeahead.js')}}"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
 <script src="{{ URL::asset('plugins/bootstrap-notify/bootstrap-notify.js') }}"></script>
+<script src="{{URL::asset('js/userjs/combo.js')}}"></script>
 <script src="{{URL::asset('js/userjs/userscript.js')}}"></script>
 <script>
 

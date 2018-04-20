@@ -270,9 +270,10 @@
             </li>
             <li data-menu="dropdown" class="dropdown nav-item"><a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="ft-layout"></i><span>Cheque Detail</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{url('cheque')}}" data-toggle="dropdown" class="dropdown-item">Cheque Register</a></li>
-                    <li><a href="{{url('cheque-completed')}}" data-toggle="dropdown" class="dropdown-item">Completed Cheques</a></li>
+                    <li><a href="{{url('cheque')}}" data-toggle="dropdown" class="dropdown-item">Unprocessed Cheques</a></li>
+                    <li><a href="{{url('cheque-completed')}}" data-toggle="dropdown" class="dropdown-item">Cheque Register</a></li>
                     <li><a href="{{url('pending-bounce-cheque')}}" data-toggle="dropdown" class="dropdown-item">Pending Bounce Cheques</a></li>
+                    <li><a href="#" data-toggle="dropdown" class="dropdown-item">Bounce Cheques</a></li>
                 </ul>
             </li>
         </ul>

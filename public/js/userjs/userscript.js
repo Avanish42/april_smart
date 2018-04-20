@@ -1,4 +1,11 @@
 $(document).ready(function() {
+
+    $("#tempbillitemselect").combobox({
+        selected: function(event, ui) {
+            $('#log').text('selected ' + $("#combobox").val());
+        }
+    });
+
     jQuery.browser = {};
     jQuery.browser.msie = false;
     jQuery.browser.version = 0;

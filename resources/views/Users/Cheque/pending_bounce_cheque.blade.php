@@ -68,7 +68,7 @@
                                                         <th>Reason</th>
                                                         <th>Penalty</th>
                                                         <th>Remark</th>
-                                                        {{--<th>Action</th>--}}
+                                                        <th>Action</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -77,7 +77,7 @@
                                                             @php$penalty = $value_unclear->penalty;@endphp
                                                             <form method="post" action="{{url('/update-bounce-check')}}">
                                                                 {{csrf_field()}}
-                                                                <td>{{$value_unclear->created_at}}</td>
+                                                                <td>{{date('d-M-Y',strtotime($value_unclear->created_at))}}</td>
                                                                 <td>{{$value_unclear->retailer_name}}</td>
                                                                 <td class="text-xs-right">{{$value_unclear->cheque_number}}</td>
                                                                 <td class="text-xs-right">{{$value_unclear->Cheque_Date}}</td>
@@ -87,9 +87,9 @@
                                                                 <td>{{$penalty->name}}</td>
                                                                 <td>{{$penalty->amount}}</td>
                                                                 <td> {{$value_unclear->reason}}</td>
-                                                                {{--<td>--}}
-                                                                    {{--<input type="submit" value="Update" class="btn btn-sm btn-primary">--}}
-                                                                {{--</td>--}}
+                                                                <td>
+                                                                    <input type="submit" value="Entry in Account" class="btn btn-sm btn-primary">
+                                                                </td>
                                                             </form>
                                                         </tr>
                                                     @endforeach

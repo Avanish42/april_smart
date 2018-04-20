@@ -87,8 +87,8 @@
                                                         <input type="hidden" name="id" value="{{$value_cheq->id}}">
                                                         <td>{{date('d-M-Y',strtotime($value_cheq->created_at)) }}</td>
                                                         <td>{{$value_cheq->retailer_name}}</td>
-                                                        <td class="text-xs-right"><input type="text" name="cheque_number"></td>
-                                                        <td class="text-xs-right"><input type="text" class="cheque_datepicker" name="Cheque_Date"></td>
+                                                        <td class="text-xs-right"><input type="text" style="width: 70px;" name="cheque_number"></td>
+                                                        <td class="text-xs-right"><input type="text"  class="cheque_datepicker"  style="width: 70px;"  name="Cheque_Date"></td>
                                                         <td class="text-xs-right">{{$value_cheq->amount}}</td>
                                                         <td><input type="text" name="bank_name" class="bank_name_suggest" autocomplete="off"></td>
                                                         <td>{{$value_cheq->amount}}</td>

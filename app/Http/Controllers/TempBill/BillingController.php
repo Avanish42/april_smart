@@ -21,6 +21,7 @@ class BillingController extends Controller
             $q->where('name', 'field');
         })->get()->toArray();
 
+//        $products =
       return view('Users.TempBill.tempbill',compact('staff'));
 
     }

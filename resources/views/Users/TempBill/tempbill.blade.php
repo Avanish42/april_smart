@@ -108,7 +108,7 @@
                                                     <table class="table  light-gray  m-b-10 table-bordered" style="width:80%; margin:auto;">
                                                         <thead>
                                                         <tr>
-                                                            <td colspan="2" rowspan="3">
+                                                            <td colspan="4" rowspan="3">
                                                                 <div class="pull-left" style="margin-right:30px!important;"><img src="<?php echo url('images/kia_logo.jpg') ?>"></div>
                                                                 <div class="pull-left"><strong>KIA Sales</strong><br>
                                                                     HO: 1852-53, Khari Baoli, Delhi 110006<br>
@@ -131,7 +131,7 @@
                                                             <td colspan="3">Other Reference(s)</td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" rowspan="4" style="vertical-align:top;">
+                                                            <td colspan="4" rowspan="4" style="vertical-align:top;">
                                                                 <div class="pull-left" style="margin-right:30px!important;">Buyer<br>
                                                                     <strong>Cash</strong><br><br>
                                                                     PAN/IT No<br>
@@ -158,107 +158,83 @@
                                                         </tr>
                                                         <tr class="gray">
                                                             <th width="5%" class="light-gray th">S.No.</th>
-                                                            <th style="width:80%!important;">Item</th>
-                                                            <th width="5%">Qty.</th>
+                                                            <th style="width:30%!important;">Item</th>
+                                                            <th width="5%">Pcs/ Box in Case</th>
+                                                            <th width="20%!important;">MRP</th>
+                                                            <th width="5%">Quantity</th>
+                                                            <th width="5%">Units</th>
                                                             <th width="5%">Rate</th>
-                                                            <th width="5%">Amount</th>
-                                                            <th width="5%">Qty.</th>
-                                                            <th width="5%">Rate</th>
-                                                            <th width="5%">Amount</th>
+                                                            <th width="5%">Per</th>
+                                                            <th width="5%">Rate per piece</th>
+                                                            <th width="20%!important;">Amount</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <tr>
                                                             <td style="vertical-align:text-top;">1</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
+                                                            <td style="vertical-align:text-top; text-align:left;">
+                                                                <select class="itemtempbill" id="tempbillitemselect" name="tempbill_product">
+                                                                    <option>Maggi Double</option>
+                                                                    <option>BarOne @ 5 </option>
+                                                                    <option>Choco Éclair</option>
+                                                                    <option value="">Select one...</option>
+                                                                    <option value="ActionScript">ActionScript</option>
+                                                                    <option value="AppleScript">AppleScript</option>
+                                                                    <option value="Asp">Asp</option>
+                                                                    <option value="BASIC">BASIC</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="C++">C++</option>
+                                                                    <option value="Clojure">Clojure</option>
+                                                                    <option value="COBOL">COBOL</option>
+                                                                    <option value="ColdFusion">ColdFusion</option>
+                                                                    <option value="Erlang">Erlang</option>
+                                                                    <option value="Fortran">Fortran</option>
+                                                                    <option value="Groovy">Groovy</option>
+                                                                    <option value="Haskell">Haskell</option>
+                                                                    <option value="Java">Java</option>
+                                                                    <option value="JavaScript">JavaScript</option>
+                                                                    <option value="Lisp">Lisp</option>
+                                                                    <option value="Perl">Perl</option>
+                                                                    <option value="PHP">PHP</option>
+                                                                    <option value="Python">Python</option>
+                                                                    <option value="Ruby">Ruby</option>
+                                                                    <option value="Scala">Scala</option>
+                                                                    <option value="Scheme">Scheme</option>
+                                                                </select>
+                                                               </td>
+
+                                                            <td style="vertical-align:text-top; text-align:right;">
+                                                                <input name="pcs_box_in_cas" style="width: 70px;" class="no-border tempbillpcsboxincase">
+                                                            </td>
+                                                            <td style="vertical-align:text-top; text-align:right;">
+                                                                <input name="mrp_tempbill" style="width: 70px;" class="no-border mrptempbill">
+                                                            </td></td>
+                                                            <td style="vertical-align:text-top; text-align:right;">
+                                                                <input name="quantity_tempbill" style="width: 70px;" class="no-border mrptempbill">
+                                                            </td>
+                                                            <td style="vertical-align:text-top; text-align:right;">
+                                                                <select class="unititemtypetempbill" class="no-border" name="unit_item_type_tempbill">
+                                                                    <option ></option>
+                                                                    <option value="pieces">Pieces</option>
+                                                                    <option value="box">Box</option>
+                                                                </select>
+                                                            </td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input name="rate_tempbill" style="width: 70px;" class="no-border ratetempbill"></td>
+                                                            <td style="vertical-align:text-top; text-align:right;">
+                                                                <select class="rateitemtypetempbill" class="no-border" name="per_item_type_tempbill">
+                                                                    <option ></option>
+                                                                    <option value="pieces">Pieces</option>
+                                                                    <option value="box">Box</option>
+                                                                </select></td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input name="rate_per_tempbill" class="no-border ratepertempbill"></td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input name="amount_tempbill" disabled="disabled" class="no-border amounttempbill">/-</td>
                                                         </tr>
 
-                                                        <tr class="odd">
-                                                            <td style="vertical-align:text-top;">2</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
-
-
-                                                        <tr>
-                                                            <td style="vertical-align:text-top;">3</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
-
-                                                        <tr class="odd">
-                                                            <td style="vertical-align:text-top;">4</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td style="vertical-align:text-top;">5</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
-
-                                                        <tr class="odd">
-                                                            <td style="vertical-align:text-top;">6</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td style="vertical-align:text-top;">7</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
-
-                                                        <tr class="odd">
-                                                            <td style="vertical-align:text-top;">8</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">-</td>
-                                                            <td style="vertical-align:text-top; text-align:right;">000/-</td>
-                                                        </tr>
 
                                                         <tr class="tblfooter">
                                                             <td><strong>Total</strong></td>
+                                                            <td>-</td>
+                                                            <td>-</td>
                                                             <td>-</td>
                                                             <td>-</td>
                                                             <td>-</td>
@@ -337,16 +313,16 @@
                 <form action="{{url('addProduct')}}" method="post">
                 <tr>
                     {{csrf_field()}}
-                    <td><input type="text" name="item_name" placeholder="Name"></td>
+                    <td><input type="text" name="item_name" required placeholder="Name"></td>
                     <td>
-                        <select name="item_type">
+                        <select name="item_type" required>
                             <option value="">Please select Type</option>
                             <option value="pieces">Pieces</option>
                             <option value="box">Box</option>
                         </select>
                     </td>
                     <td><input type="number" name="item_quantity"></td>
-                    <td><input type="number" name="item_price"></td>
+                    <td><input type="number" required name="item_price"></td>
                     <td> <input type="submit" value="Save" name="save"> </td>
                 </tr>
                 </form>
@@ -387,9 +363,9 @@
                         <form action="{{url('addRetailer')}}" method="post">
                             <tr>
                                 {{csrf_field()}}
-                                <td><input type="text" name="retailer_name" placeholder="Retailer Name"></td>
-                                <td><input type="text" name="beat" placeholder="Beat"></td>
-                                <td><select name="salesman" >
+                                <td><input type="text" name="retailer_name" required placeholder="Retailer Name"></td>
+                                <td><input type="text" name="beat" required placeholder="Beat"></td>
+                                <td><select name="salesman" required>
                                         <option value="">Select Sales Man</option>
                                         @foreach($staff as $s)
                                             <option value="{{$s['id']}}">{{$s['name']}}</option>
@@ -407,6 +383,25 @@
             </div>
         </div>
     </div>
-
+    <style>
+        .custom-combobox {
+            position: relative;
+            display: inline-block;
+        }
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+        }
+        .ui-autocomplete-input {
+            margin: 0;
+            padding: 5px 10px;
+            outline: 0;
+            border: none;
+            background: white;
+        }
+    </style>
 
 @endsection
