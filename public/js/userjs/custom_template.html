@@ -1,0 +1,7 @@
+<a>
+    <img
+            width="16"
+            ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}"
+    >
+    <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+</a>

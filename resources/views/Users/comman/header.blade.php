@@ -32,10 +32,15 @@
     <link href="{{URL::asset('css/usercss/unslider.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/usercss/vertical-overlay-menu.min.css')}}" rel="stylesheet">
 
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
 
 
     <script src="{{URL::asset('js/userjs/angular.js')}}"></script>
+    <script src="{{URL::asset('js/userjs/ui-bootstrap.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+
+
     <script src="{{URL::asset('js/userjs/app.module.js')}}"></script>
     <script src="{{URL::asset('js/userjs/app.tempbills.service.js')}}"></script>
     <script src="{{URL::asset('js/userjs/app.tempbills.controller.js')}}"></script>

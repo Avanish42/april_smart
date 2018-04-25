@@ -23,6 +23,7 @@ var UnallocatedBills = [];
 var pastallocationBills = [];
 var bankName = [];
 var unallocatedcheques = [];
+var products = [];
 </script>
 @if(isset($UnallocatedCheques))
     <script type="text/javascript">
@@ -54,6 +55,12 @@ var unallocatedcheques = [];
         bankName = {!! json_encode($bank_name) !!}
     </script>
 @endif
+@if(isset($products))
+    <script type="text/javascript">
+        products = {!! json_encode($products) !!}
+    </script>
+@endif
+
 
 
 

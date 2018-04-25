@@ -5,12 +5,12 @@
 @section('main-content')
 
 
-    <body data-open="hover" data-menu="horizontal-menu" data-col="2-columns" class="horizontal-layout horizontal-menu 2-columns   menu-expanded">
+    <body data-open="hover" ng-app="app" data-menu="horizontal-menu" data-col="2-columns" class="horizontal-layout horizontal-menu 2-columns   menu-expanded">
 
 
     @include('Users.header')
 
-    <div class="app-content content container-fluid">
+    <div ng-controller="tempBill as vm" class="app-content content container-fluid">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-xs-12 mb-2">
@@ -170,64 +170,42 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td style="vertical-align:text-top;">1</td>
+                                                        <tr ng-repeat="(key,bill) in vm.bills">
+
+                                                            <form name="billform" novalidate="" form-on-change="change()" >
+
+                                                            <td style="vertical-align:text-top;">@{{bill.sno}}</td>
                                                             <td style="vertical-align:text-top; text-align:left;">
-                                                                <select class="itemtempbill" id="tempbillitemselect" name="tempbill_product">
-                                                                    <option>Maggi Double</option>
-                                                                    <option>BarOne @ 5 </option>
-                                                                    <option>Choco Éclair</option>
-                                                                    <option value="">Select one...</option>
-                                                                    <option value="ActionScript">ActionScript</option>
-                                                                    <option value="AppleScript">AppleScript</option>
-                                                                    <option value="Asp">Asp</option>
-                                                                    <option value="BASIC">BASIC</option>
-                                                                    <option value="C">C</option>
-                                                                    <option value="C++">C++</option>
-                                                                    <option value="Clojure">Clojure</option>
-                                                                    <option value="COBOL">COBOL</option>
-                                                                    <option value="ColdFusion">ColdFusion</option>
-                                                                    <option value="Erlang">Erlang</option>
-                                                                    <option value="Fortran">Fortran</option>
-                                                                    <option value="Groovy">Groovy</option>
-                                                                    <option value="Haskell">Haskell</option>
-                                                                    <option value="Java">Java</option>
-                                                                    <option value="JavaScript">JavaScript</option>
-                                                                    <option value="Lisp">Lisp</option>
-                                                                    <option value="Perl">Perl</option>
-                                                                    <option value="PHP">PHP</option>
-                                                                    <option value="Python">Python</option>
-                                                                    <option value="Ruby">Ruby</option>
-                                                                    <option value="Scala">Scala</option>
-                                                                    <option value="Scheme">Scheme</option>
-                                                                </select>
+                                                                {{--<select  class="itemtempbill tempbillitemselect" ng-options="item as item.item_name for item in bill.products track by item.id"  ng-model="bill.pcsboxincase"  name="tempbill_product">--}}
+
+                                                                {{--</select>--}}
+
+                                                                <input type="text"  ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
                                                                </td>
 
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input name="pcs_box_in_cas" style="width: 70px;" class="no-border tempbillpcsboxincase">
+                                                                <input type="number" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="no-border tempbillpcsboxincase">
                                                             </td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input name="mrp_tempbill" style="width: 70px;" class="no-border mrptempbill">
+                                                                <input type="number" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="no-border mrptempbill">
                                                             </td></td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input name="quantity_tempbill" style="width: 70px;" class="no-border mrptempbill">
+                                                                <input type="number" name="quantity_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.quantity" style="width: 70px;" class="no-border mrptempbill">
                                                             </td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="unititemtypetempbill" class="no-border" name="unit_item_type_tempbill">
-                                                                    <option ></option>
-                                                                    <option value="pieces">Pieces</option>
-                                                                    <option value="box">Box</option>
+                                                                <select class="unititemtypetempbill" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" class="no-border" name="unit_item_type_tempbill">
+
                                                                 </select>
                                                             </td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input name="rate_tempbill" style="width: 70px;" class="no-border ratetempbill"></td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate" style="width: 70px;" class="no-border ratetempbill"></td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="rateitemtypetempbill" class="no-border" name="per_item_type_tempbill">
-                                                                    <option ></option>
-                                                                    <option value="pieces">Pieces</option>
-                                                                    <option value="box">Box</option>
+                                                                <select class="rateitemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.per" ng-options="item for item in vm.piecesBox" class="no-border" name="per_item_type_tempbill">
+
                                                                 </select></td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input name="rate_per_tempbill" class="no-border ratepertempbill"></td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input name="amount_tempbill" disabled="disabled" class="no-border amounttempbill">/-</td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_per_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate_per_piece" class="no-border ratepertempbill"></td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="amount_tempbill" ng-model="bill.amount"  disabled="disabled" class="no-border amounttempbill">/-</td>
+
+                                                            </form>
                                                         </tr>
 
 
@@ -403,5 +381,26 @@
             background: white;
         }
     </style>
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/@{{match.model.flag}}" width="16">
+            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+        </a>
+    </script>
+    <script type="text/ng-template" id="customPopupTemplate.html">
+        <div class="custom-popup-wrapper"
+             ng-style="@{top: position().top+'px', left: position().left+'px'}"
+             style="display: block;"
+             ng-show="isOpen() && !moveInProgress"
+             aria-hidden="@{{!isOpen()}}">
+            <p class="message">select location from drop down.</p>
 
+            <ul class="dropdown-menu" role="listbox">
+                <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="@{active: isActive($index) }"
+                    ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="@{{::match.id}}">
+                    <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+                </li>
+            </ul>
+        </div>
+    </script>
 @endsection

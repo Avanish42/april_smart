@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\TempBill;
 
+use App\Model\TempBillItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -21,8 +22,8 @@ class BillingController extends Controller
             $q->where('name', 'field');
         })->get()->toArray();
 
-//        $products =
-      return view('Users.TempBill.tempbill',compact('staff'));
+        $products = TempBillItem::all();
+      return view('Users.TempBill.tempbill',compact('staff','products'));
 
     }
 

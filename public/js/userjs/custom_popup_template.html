@@ -1,0 +1,28 @@
+<div
+        style="display: block;"
+        aria-hidden="{{!isOpen()}}"
+        class="custom-popup-wrapper"
+        ng-show="isOpen() && !moveInProgress"
+        ng-style="{top: position().top+'px', left: position().left+'px'}"
+>
+    <p class="message">select location from drop down.</p>
+    <ul class="dropdown-menu" role="listbox">
+        <li
+                role="option"
+                id="{{::match.id}}"
+                ng-click="selectMatch($index)"
+                ng-mouseenter="selectActive($index)"
+                ng-class="{active: isActive($index)}"
+                ng-repeat="match in matches track by $index"
+        >
+            <div
+                    match="match"
+                    query="query"
+                    index="$index"
+                    uib-typeahead-match
+                    template-url="templateUrl"
+            >
+            </div>
+        </li>
+    </ul>
+</div>
