@@ -24,6 +24,8 @@ var pastallocationBills = [];
 var bankName = [];
 var unallocatedcheques = [];
 var products = [];
+var retailers = [];
+var tempInvoice = '';
 </script>
 @if(isset($UnallocatedCheques))
     <script type="text/javascript">
@@ -58,6 +60,16 @@ var products = [];
 @if(isset($products))
     <script type="text/javascript">
         products = {!! json_encode($products) !!}
+    </script>
+@endif
+@if(isset($retailers))
+    <script type="text/javascript">
+        retailers = {!! json_encode($retailers) !!}
+    </script>
+@endif
+@if(isset($invoice_no))
+    <script type="text/javascript">
+        tempInvoice = {!! json_encode($invoice_no) !!}
     </script>
 @endif
 

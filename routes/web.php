@@ -35,6 +35,7 @@ Route::group(['namespace'=>'Apis'], function(){
 Route::group(['namespace'=>'TempBill'],function(){
     Route::get('/temp', 'BillingController@index' );
     Route::get('/tempbill', 'BillingController@tempBill');
+    Route::post('/tempbill-post', 'BillingController@tempbillPost');
     Route::get('/printBills','BillingController@printBills');
     Route::post('/addProduct','ItemController@addProduct');
     Route::post('/addRetailer','RetailerController@addRetailer');
@@ -46,7 +47,7 @@ Route::group(['namespace'=>'TempBill'],function(){
 Route::get('cheque','Admin\ChequeRegister@index');
 Route::get('cheque-completed','Admin\ChequeRegister@chequeCompleted');
 Route::post('cheque-completed-post','Admin\ChequeRegister@chequeCompletedPost');
-Route::get('bounce-cheque/{id}','Admin\ChequeRegister@bounceCheque');
+//Route::get('bounce-cheque/{id}','Admin\ChequeRegister@bounceCheque');
 Route::get('cleared-cheque/{id}','Admin\ChequeRegister@clearedCheque');
 Route::post('complete-registered-check','Admin\ChequeRegister@completeRegisteredCheck');
 
@@ -56,6 +57,8 @@ Route::get('penalty-detail/{id}','Admin\BounceChequeRegister@getPenaltyDetails')
 //Route::post('update-bounce-check','Admin\BounceChequeRegister@updateBounceCheck');
 Route::post('bounce-check-register-penalty','Admin\BounceChequeRegister@bounceCheckRegisterPenalty');
 Route::get('pending-bounce-cheque','Admin\BounceChequeRegister@pendingBounceCheque');
+Route::post('entry-in-acount','Admin\BounceChequeRegister@entryInAcount');
+Route::get('bounce-cheque','Admin\BounceChequeRegister@bounceCheque');
 
 
 

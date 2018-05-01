@@ -1,4 +1,4 @@
-﻿@extends('Users.userapp')
+@extends('Users.userapp')
 @section('pagetitle')
     Smart Distributer
 @endsection
@@ -12,13 +12,13 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-xs-12 mb-2">
-                    <h3 class="content-header-title mb-0">Cheque Bounce Register</h3>
+                    <h3 class="content-header-title mb-0">Cheque Bounce</h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-xs-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.htm">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="#">Cheque Detail</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Cheque Bounce Register</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Cheque Bounce</a></li>
                             </ol>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title" id="basic-layout-form">Bounce Cheque With Penalty</h4>
+                            <h4 class="card-title" id="basic-layout-form">Bounce Cheque</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -68,11 +68,11 @@
                                                         <th>Reason</th>
                                                         <th>Penalty</th>
                                                         <th>Remark</th>
-                                                        <th>Action</th>
+                                                        {{--<th>Action</th>--}}
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($uncleared_check_with_penalty as $key_unclear => $value_unclear)
+                                                    @foreach($acount_entry_cheque as $key_unclear => $value_unclear)
                                                         <tr>
                                                             @php$penalty = $value_unclear->penalty;@endphp
                                                             <form method="post" action="{{url('/entry-in-acount')}}">
@@ -87,10 +87,10 @@
                                                                 <td>{{$penalty->name}}</td>
                                                                 <td>{{$penalty->amount}}</td>
                                                                 <td> {{$value_unclear->reason}}</td>
-                                                                <td>
-                                                                    <input type="hidden" name="bounce_check_id" value="{{$value_unclear->id}}" >
-                                                                    <input type="submit" value="Entry in Account" >
-                                                                </td>
+                                                                {{--<td>--}}
+                                                                    {{--<input type="hidden" name="bounce_check_id" value="{{$value_unclear->id}}" >--}}
+                                                                    {{--<input type="submit" value="Entry in Account" >--}}
+                                                                {{--</td>--}}
                                                             </form>
                                                         </tr>
                                                     @endforeach

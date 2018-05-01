@@ -35,4 +35,8 @@ class User extends Authenticatable
         public function fieldTodayBills(){
         return $this->belongsToMany('App\Model\Bill','user_bill','user_id','bill_id');
     }
+
+    public function tempBillRetailers(){
+        return $this->hasMany('App\Model\TempBillRetailer','salesman_id');
+    }
 }

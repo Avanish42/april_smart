@@ -118,44 +118,21 @@
                                                                     State Name : Delhi, Code : 07<br>
                                                                     E-Mail : info@kiasales.in</div></td>
                                                             <td colspan="3">Invoice No.<br>
-                                                                <strong> I/17-18/310</strong></td>
+                                                              <input type="text" disabled="disabled" name="pcs_box_in_cas" ng-model="vm.incvoice"  class="no-border tempbillpcsboxincase"> </td>
                                                             <td colspan="3">Dated<br>
-                                                                <strong>12-Dec-2017</strong></td>
+                                                                <strong>{{Carbon\Carbon::parse(Carbon\Carbon::now())->format('d-M-Y')}}</strong></td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="3">Delivery Note</td>
-                                                            <td colspan="3">Mode/Terms of Payment</td>
+                                                            <td colspan="3">Retailer Name</td>
+                                                            <td colspan="3">
+                                                                <input type="text" class="no-border" ng-trim="false" typeahead-on-select="vm.retailerchange()" ng-blur="vm.retailerchange()" ng-model="vm.billretailer" empty-typeahead uib-typeahead="item as item.retailer_name for item in vm.retailers | filter:$viewValue:stateComparator" >
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3">Supplier’s Ref.</td>
-                                                            <td colspan="3">Other Reference(s)</td>
+                                                            <td colspan="3">@{{vm.suplierref}}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td colspan="4" rowspan="4" style="vertical-align:top;">
-                                                                <div class="pull-left" style="margin-right:30px!important;">Buyer<br>
-                                                                    <strong>Cash</strong><br><br>
-                                                                    PAN/IT No<br>
-                                                                    State Name<br>
-                                                                    Place of Supply</div>
-                                                                <div class="pull-left"><br>
-                                                                    <br><br>
-                                                                    :<br>
-                                                                    : Delhi, Code : 07<br>
-                                                                    : Delhi</div>  </td>
-                                                            <td colspan="3">Buyer’s Order No.</td>
-                                                            <td colspan="3">Dated</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="3">Despatch Document No.</td>
-                                                            <td colspan="3">Delivery Note Date</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="3">Despatched through</td>
-                                                            <td colspan="3">Destination</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="6" style="height:130px; vertical-align:top;">Terms of Delivery</td>
-                                                        </tr>
+
                                                         <tr class="gray">
                                                             <th width="5%" class="light-gray th">S.No.</th>
                                                             <th style="width:30%!important;">Item</th>
@@ -180,20 +157,20 @@
 
                                                                 {{--</select>--}}
 
-                                                                <input type="text"  ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
+                                                                <input type="text" class="no-border" ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
                                                                </td>
 
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="no-border tempbillpcsboxincase">
+                                                                <input type="number" disabled="disabled" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="no-border tempbillpcsboxincase">
                                                             </td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="no-border mrptempbill">
+                                                                <input type="number" disabled="disabled" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="no-border mrptempbill">
                                                             </td></td>
                                                             <td style="vertical-align:text-top; text-align:right;">
                                                                 <input type="number" name="quantity_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.quantity" style="width: 70px;" class="no-border mrptempbill">
                                                             </td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="unititemtypetempbill" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" class="no-border" name="unit_item_type_tempbill">
+                                                                <select class="unititemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" name="unit_item_type_tempbill">
 
                                                                 </select>
                                                             </td>
@@ -202,7 +179,7 @@
                                                                 <select class="rateitemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.per" ng-options="item for item in vm.piecesBox" class="no-border" name="per_item_type_tempbill">
 
                                                                 </select></td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_per_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate_per_piece" class="no-border ratepertempbill"></td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_per_tempbill" ng-blur="formChangeE(bill,key)" disabled="disabled" ng-model="bill.rate_per_piece" class="no-border ratepertempbill"></td>
                                                             <td style="vertical-align:text-top; text-align:right;"><input type="number" name="amount_tempbill" ng-model="bill.amount"  disabled="disabled" class="no-border amounttempbill">/-</td>
 
                                                             </form>
@@ -219,10 +196,14 @@
                                                             <td>-</td>
                                                             <td>-</td>
                                                             <td>-</td>
-                                                            <td>-</td>
+                                                            <td>&#x20b9 @{{vm.totalAmount}}/-</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
+
+                                                    <div class="submit-bill-box" style="width: 95%">
+                                                        <input type="button" name="submit Button" ng-click="vm.submitBill()"  value="Submit Bill" class="btn btn-success pull-right">
+                                                    </div>
                                                 </div>
                                                 <br>
 

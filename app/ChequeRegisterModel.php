@@ -8,6 +8,10 @@ class ChequeRegisterModel extends Model
 {
 
 
+    public function bank(){
+        return $this->belongsTo('App\Model\Bank','bank_id');
+    }
+
     public function scopeCompleted($query){
         return $query->where('is_completed',1);
     }
@@ -24,7 +28,8 @@ class ChequeRegisterModel extends Model
         return $query->where(function($query) use ($value){
             $query->where('cheque_number', 'like', '%' . $value . '%')
                 ->orWhere('billno', 'like', '%' . $value . '%')
-                ->orWhere('allocationNo', 'like', '%' . $value . '%');
+                ->orWhere('allocationNo', 'like', '%' . $value . '%')
+                ->orWhere('retailer_name', 'like', '%' . $value . '%');
         });
 
     }

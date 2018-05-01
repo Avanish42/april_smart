@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+if(status == 100){
+    alertNotify(message);
+}
+
     $(".tempbillitemselect").combobox({
         selected: function(event, ui) {
             $('#log').text('selected ' + $("#combobox").val());
@@ -38,7 +42,13 @@ $(document).ready(function() {
         "bPaginate": true,
         "processing": true,
         "bServerSide": true,
-
+        aoColumnDefs: [
+            {
+                bSortable: false,
+                aTargets: [ 4,5 ]
+            }
+        ],
+        "lengthMenu": [[100, 200, 500, -1], [100, 200, 500, "All"]],
         "ajax":{
             "url": APP_URL+"/cheque-completed-post",
             "dataType": "json",
@@ -50,7 +60,7 @@ $(document).ready(function() {
             { "data": "retailer_name" },
             { "data": "cheque_number" },
             { "data": "Cheque_Date" },
-            { "data": "cheque_amount" },
+            // { "data": "cheque_amount" },
             { "data": "bank_name" },
             { "data": "amount" },
             { "data": "billno" },
@@ -65,10 +75,8 @@ $(document).ready(function() {
 
 
     window.setTimeout(function() {
-        $(".alert").fadeTo(3000, 0).slideUp(3000, function(){
-            // $(this).remove();
-        });
-    }, 5000);
+        $(".alert").hide();
+    }, 3000);
 
     $('#penalty-modal').on('hidden.bs.modal', function () {
         $(this).find("input[type=text], select").val("");
@@ -180,7 +188,11 @@ $(document).ready(function() {
     })
 
     $('.bank_name_suggest').typeahead({
-        source: bankName
+        source: bankName,
+        // onSelect: function (item) {
+        //     console.log(item)
+        // }
+      
     })
 
     $('.pendingbouncecheque').typeahead({

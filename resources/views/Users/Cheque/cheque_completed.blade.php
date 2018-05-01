@@ -69,7 +69,7 @@
                                                         <th>Retailer Name</th>
                                                         <th class="text-xs-right">Cheque Number</th>
                                                         <th class="text-xs-right">Cheque Date</th>
-                                                        <th class="text-xs-right">Cheque Amount</th>
+                                                        {{--<th class="text-xs-right">Cheque Amount</th>--}}
                                                         <th>Bank Name</th>
                                                         <th>Amount</th>
                                                         <th>Bill No.</th>
@@ -144,7 +144,7 @@
                     <form class="form-horizontal" id="penalty-form" method="post" action="{{url('bounce-check-register-penalty')}}">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Email<span style="color: red">*</span>:</label>
+                            <label class="control-label col-sm-2" for="email">Reason<span style="color: red">*</span>:</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="penaltySelect" name="penalty_id">
                                     <option value="">Please Select Penalty</option>

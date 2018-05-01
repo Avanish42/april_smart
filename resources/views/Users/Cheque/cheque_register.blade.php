@@ -46,14 +46,6 @@
                                                     </ul>
                                                 </div>
                                             @endif
-                                                @if(session('status') && session('status') == 100)
-                                                    <div class="row">
-                                                        <div class="alert alert-success alert-dismissable">
-                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                            <strong>Success!</strong> {{session('message')}}
-                                                        </div>
-                                                    </div>
-                                                @endif
                                                 <div class="row ajaxsuccess" style="display: none">
                                                     <div class="alert alert-success alert-dismissable ">
                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -95,7 +87,7 @@
                                                         <td>{{$value_cheq->billno}}</td>
                                                         <td>{{$value_cheq->allocationNo}}</td>
                                                         <td><input type="text" name="remark"></td>
-                                                        <td><input type="submit" value="Save" class="btn btn-sm btn-info"></td>
+                                                        <td><input type="submit" value="Save" ></td>
                                                     </tr>
                                                             </form>
                                                     @endif
@@ -122,6 +114,7 @@
 
 
             </div>
+
             </section>
             <!-- // Basic form layout section end -->
         </div>

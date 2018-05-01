@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Response;
 use App\model\ChequePenaltyModel;
+use App\Model\Bank;
 
 
 class ChequeRegister extends Controller
@@ -17,7 +18,7 @@ class ChequeRegister extends Controller
 
     public function index(){
 
-        $temp_bank = ChequeRegisterModel::select('bank_name')->Completed()->distinct('bank_name')->get();
+        $temp_bank = Bank::all();
         $bank_name=array();
         foreach ($temp_bank as $k=>$v)
         {
@@ -40,7 +41,7 @@ class ChequeRegister extends Controller
             1 =>'retailer_name',
             2=> 'cheque_number',
             3=> 'Cheque_Date',
-            4=> 'cheque_amount',
+//            4=> 'cheque_amount',
             5=> 'bank_name',
             6=> 'amount',
             7=> 'billno',
@@ -56,22 +57,37 @@ class ChequeRegister extends Controller
 
         if(empty($request->input('search.value')))
         {
-            $cheques = ChequeRegisterModel::Completed()->Cleared()->UnBounced()->offset($start)->limit($limit)
-                        ->orderBy($order,$dir)->get();
+            if($limit == -1){
+                $cheques = ChequeRegisterModel::Completed()->Cleared()->UnBounced()->orderBy($order, $dir)->get();
+            }
+            else {
+                $cheques = ChequeRegisterModel::Completed()->Cleared()->UnBounced()->offset($start)->limit($limit)
+                    ->orderBy($order, $dir)->get();
+            }
         }
         else {
             $search = $request->input('search.value');
 
-            $cheques =  ChequeRegisterModel::Completed()->Cleared()->UnBounced()
+            if($limit == -1){
+                $cheques =  ChequeRegisterModel::Completed()->Cleared()->UnBounced()
                     ->SearchCheque($search)
                     ->offset($start)
-                ->limit($limit)
-                ->orderBy($order,$dir)
-                ->get();
+                    ->get();
+            }
+            else{
+                $cheques =  ChequeRegisterModel::Completed()->Cleared()->UnBounced()
+                    ->SearchCheque($search)
+                    ->offset($start)
+                    ->limit($limit)
+                    ->orderBy($order,$dir)
+                    ->get();
+            }
+
 
             $totalFiltered = ChequeRegisterModel::Completed()->Cleared()->UnBounced()
                 ->SearchCheque($search)->count();
         }
+
         $data = array();
         if(!empty($cheques))
         {
@@ -81,13 +97,13 @@ class ChequeRegister extends Controller
                 $nestedData['retailer_name'] = $cheque->retailer_name;
                 $nestedData['cheque_number'] = $cheque->cheque_number;
                 $nestedData['Cheque_Date'] = $cheque->Cheque_Date;
-                $nestedData['cheque_amount'] = $cheque->cheque_amount;
-                $nestedData['bank_name'] = $cheque->bank_name;
+//                $nestedData['cheque_amount'] = $cheque->cheque_amount;
+                $nestedData['bank_name'] = $cheque->bank->bank_name;
                 $nestedData['amount'] = $cheque->amount;
                 $nestedData['billno'] = $cheque->billno;
                 $nestedData['allocationNo'] = $cheque->allocationNo;
                 $nestedData['remark'] = $cheque->remark;
-                $nestedData['action'] = "<input type='button' value='Bounce' id='chequeBounce' data-react-id='{$cheque->id}' class='btn btn-sm btn-primary'>";
+                $nestedData['action'] = "<input type='button' value='Bounce' id='chequeBounce' data-react-id='{$cheque->id}' >";
                 $data[] = $nestedData;
             }
 
@@ -109,10 +125,18 @@ class ChequeRegister extends Controller
             'bank_name' => 'required',
         ]);
 
+        $bank = Bank::where('bank_name',$request->bank_name)->first();
+        if($bank  != null){
+            $bank_id = $bank->id;
+        }
+        else{
+            $bank_id = Bank::insertGetId(['bank_name'=>$request->bank_name]);
+        }
+
         $cheque = ChequeRegisterModel::find($request->id);
         $cheque->cheque_number = $request->cheque_number;
         $cheque->Cheque_Date = $request->Cheque_Date;
-        $cheque->bank_name = $request->bank_name;
+        $cheque->bank_id = $bank_id;
         $cheque->is_completed = 1;
         $cheque->is_cleared = 1;
         $cheque->save();

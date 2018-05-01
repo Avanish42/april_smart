@@ -273,7 +273,7 @@
                     <li><a href="{{url('cheque')}}" data-toggle="dropdown" class="dropdown-item">Unprocessed Cheques</a></li>
                     <li><a href="{{url('cheque-completed')}}" data-toggle="dropdown" class="dropdown-item">Cheque Register</a></li>
                     <li><a href="{{url('pending-bounce-cheque')}}" data-toggle="dropdown" class="dropdown-item">Pending Bounce Cheques</a></li>
-                    <li><a href="#" data-toggle="dropdown" class="dropdown-item">Bounce Cheques</a></li>
+                    <li><a href="{{url('bounce-cheque')}}" data-toggle="dropdown" class="dropdown-item">Bounce Cheques</a></li>
                 </ul>
             </li>
         </ul>

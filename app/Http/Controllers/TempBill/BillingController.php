@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\TempBill;
 
 use App\Model\TempBillItem;
+use App\Model\TempBillRetailer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
+
 
 class BillingController extends Controller
 {
@@ -23,8 +26,19 @@ class BillingController extends Controller
         })->get()->toArray();
 
         $products = TempBillItem::all();
-      return view('Users.TempBill.tempbill',compact('staff','products'));
+        $retailers = TempBillRetailer::with('salesMan')->get();
+        $invoice_no = 'TEMP-'.Carbon::now()->timestamp;
+      return view('Users.TempBill.tempbill',compact('staff','products','retailers','invoice_no'));
 
+    }
+
+    public function tempbillPost(Request $request){
+//        $
+//        $tempbill = [
+//
+//        ]
+
+        return \Response::json($request->all());
     }
 
     public function addRetailer()

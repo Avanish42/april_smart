@@ -237,7 +237,8 @@
                 }
                 //Bhanu added a custom message- Result not Found when no result is found
                 if (items.length == 0) {
-                    items[0] = {'id': -21, 'name': "Result not Found"}
+                    // items[0] = {'id': -21, 'name': "Result not Found"}
+                    return that.render(items.slice(0, that.options.items)).hide();
                 }
                 return that.render(items.slice(0, that.options.items)).show();
             }
