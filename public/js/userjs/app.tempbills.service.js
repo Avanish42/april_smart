@@ -21,6 +21,7 @@
                 data: data1,
                 dataType: 'json',
                 headers : {'Content-Type': 'application/json;charset=utf-8;'}
+
             })
         }
 

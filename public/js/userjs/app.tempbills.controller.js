@@ -76,24 +76,35 @@
         vm.retailerchange = retailerchange
 
         function submitBill(){
+            if(typeof vm.billretailer != 'object'){
+                alertNotify('Retailer is required');
+                return false;
+            }
              if ($window.confirm("Are you sure the bill is fully completed")) {
-                    deleteLastRow();
-               angular.forEach(vm.bills,function (value,key) {
-                    if(!validateRow(value,key)){
-                         alertNotify('Invalid Bill seems like you have in-complete row in bill')
-                    }
-                        else{
-                            vm.bills.retailer = vm.billretailer;
-                            vm.bills.invoice = vm.incvoice;
+                 var last = Object.keys(vm.bills)[Object.keys(vm.bills).length-1];
+                for (var x in vm.bills) {
+                     if(x == last && x != 0){
+                        break;
+                     }
+                     else{
+                         if(!validateRow(vm.bills[x],x)){
+                             alertNotify('Invalid Bill seems like you have in-complete row in bill')
+                             return false;
+                         }
+                     }
+                 }
+                 deleteLastRow();
+                 vm.bills.retailer = vm.billretailer;
+                 vm.bills.invoice = vm.incvoice;
+                 vm.bills.totalAmount = vm.totalAmount;
 
-                             $scope.tempbillpost = httpService.sendPostjson(vm.bills,APP_URL+'/tempbill-post');
-                                $scope.tempbillpost.then(function (response) {
-
-                                    console.log(response);
-                                })
-
-                        }
-               });
+                 $scope.tempbillpost = httpService.sendPostjson(vm.bills,APP_URL+'/tempbill-post');
+                 $scope.tempbillpost.then(function (response) {
+                     if(response.data.code == 100){
+                         alertNotify(response.data.message);
+                         location.reload();
+                     }
+                 })
 
              }
 
