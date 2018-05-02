@@ -50,7 +50,7 @@
     {
 
         var vm=this;
-        vm.piecesBox = ['','Pieces','Box'];
+        vm.piecesBox = ['','Pieces/Box','Case'];
         vm.states = products
         vm.retailers = retailers;
         vm.incvoice = tempInvoice;
@@ -227,17 +227,17 @@
         function calculateProductAmount(bill,key) {
             var noOfPiece;
             var perPicPrice;
-            if(bill.units == 'Pieces'){
+            if(bill.units == 'Pieces/Box'){
                 noOfPiece = bill.quantity
             }
-            if(bill.units == 'Box'){
+            if(bill.units == 'Case'){
                 noOfPiece = bill.pcsboxincase * bill.quantity;
             }
-            if(bill.per == 'Pieces'){
+            if(bill.per == 'Pieces/Box'){
                 perPicPrice = bill.rate
                 bill.rate_per_piece =  perPicPrice ;
             }
-            if(bill.per == 'Box'){
+            if(bill.per == 'Case'){
                 perPicPrice = bill.rate / bill.pcsboxincase;
                 bill.rate_per_piece = perPicPrice;
             }

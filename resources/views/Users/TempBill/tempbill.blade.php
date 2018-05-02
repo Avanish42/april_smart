@@ -118,14 +118,14 @@
                                                                     State Name : Delhi, Code : 07<br>
                                                                     E-Mail : info@kiasales.in</div></td>
                                                             <td colspan="3">Invoice No.<br>
-                                                              <input type="text" disabled="disabled" name="pcs_box_in_cas" ng-model="vm.incvoice"  class="no-border tempbillpcsboxincase"> </td>
+                                                              <input type="text" disabled="disabled" name="pcs_box_in_cas" ng-model="vm.incvoice"  class="back-set no-border tempbillpcsboxincase"> </td>
                                                             <td colspan="3">Dated<br>
                                                                 <strong>{{Carbon\Carbon::parse(Carbon\Carbon::now())->format('d-M-Y')}}</strong></td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="3">Retailer Name</td>
                                                             <td colspan="3">
-                                                                <input type="text" class="no-border" ng-trim="false" typeahead-on-select="vm.retailerchange()" ng-blur="vm.retailerchange()" ng-model="vm.billretailer" empty-typeahead uib-typeahead="item as item.retailer_name for item in vm.retailers | filter:$viewValue:stateComparator" >
+                                                                <input type="text" class="no-border back-set" ng-trim="false" typeahead-on-select="vm.retailerchange()" ng-blur="vm.retailerchange()" ng-model="vm.billretailer" empty-typeahead uib-typeahead="item as item.retailer_name for item in vm.retailers | filter:$viewValue:stateComparator" >
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -157,26 +157,26 @@
 
                                                                 {{--</select>--}}
 
-                                                                <input type="text" class="no-border" ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
+                                                                <input type="text" class="no-border back-set" ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
                                                                </td>
 
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" disabled="disabled" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="no-border tempbillpcsboxincase">
+                                                                <input type="number" disabled="disabled" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="back-set no-border tempbillpcsboxincase">
                                                             </td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" disabled="disabled" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="no-border mrptempbill">
+                                                                <input type="number" disabled="disabled" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="back-set no-border mrptempbill">
                                                             </td></td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" name="quantity_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.quantity" style="width: 70px;" class="no-border mrptempbill">
+                                                                <input type="number" name="quantity_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.quantity" style="width: 70px;" class="back-set no-border mrptempbill">
                                                             </td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="unititemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" name="unit_item_type_tempbill">
+                                                                <select class="back-set unititemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" name="unit_item_type_tempbill">
 
                                                                 </select>
                                                             </td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate" style="width: 70px;" class="no-border ratetempbill"></td>
+                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate" style="width: 70px;" class="back-set no-border ratetempbill"></td>
                                                             <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="rateitemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.per" ng-options="item for item in vm.piecesBox" class="no-border" name="per_item_type_tempbill">
+                                                                <select class="back-set rateitemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.per" ng-options="item for item in vm.piecesBox" class="no-border" name="per_item_type_tempbill">
 
                                                                 </select></td>
                                                             <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_per_tempbill" ng-blur="formChangeE(bill,key)" disabled="disabled" ng-model="bill.rate_per_piece" class="no-border ratepertempbill"></td>
@@ -360,6 +360,15 @@
             outline: 0;
             border: none;
             background: white;
+        }
+        input[type="text"]:disabled {
+            background: white;
+        }
+        input[type="number"]:disabled {
+            background: white;
+        }
+        .back-set{
+            background: #80808026;
         }
     </style>
     <script type="text/ng-template" id="customTemplate.html">
