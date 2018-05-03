@@ -30,8 +30,9 @@ class ChequeRegister extends Controller
 
     public function chequeCompleted(){
 //        $cheques = ChequeRegisterModel::all();
+        $page = 'cheque-completed';
         $penalties = ChequePenaltyModel::all();
-        return view('Users.Cheque.cheque_completed',compact('cheques','penalties'));
+        return view('Users.Cheque.cheque_completed',compact('cheques','penalties','page'));
     }
 
     public function chequeCompletedPost(Request $request){

@@ -42,6 +42,10 @@ if(status == 100){
         "bPaginate": true,
         "processing": true,
         "bServerSide": true,
+        buttons: [
+            'copy','csv', 'excel', 'pdf', 'print'
+        ],
+        dom: 'Blfrtip',
         aoColumnDefs: [
             {
                 bSortable: false,

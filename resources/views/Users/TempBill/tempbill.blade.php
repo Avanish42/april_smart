@@ -264,9 +264,9 @@
 
                 <tr class="gray">
                     <th>Product Name</th>
-                    <th>Product Type</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Product Configuration</th>
+                    <th>Pcs or Box per Case</th>
+                    <th>MRP</th>
                     <th>Action</th>
                 </tr>
                 <form action="{{url('addProduct')}}" method="post">
@@ -316,7 +316,7 @@
                         <tr class="gray">
                             <th>Retailer Name</th>
                             <th>Retailer Beat</th>
-                            <th>Reset</th>
+                            <th>Salesman</th>
                             <th>Save</th>
                         </tr>
                         <form action="{{url('addRetailer')}}" method="post">

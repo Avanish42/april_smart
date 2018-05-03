@@ -42,7 +42,7 @@
                             <div class="card-block">
                                 <div class="card-text">
                                     <div class="row">
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-12">
                                             @if ($errors->any())
                                                 <div class="alert alert-danger">
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -53,7 +53,7 @@
                                                     </ul>
                                                 </div>
                                             @endif
-                                            <div class="table-responsive">
+                                            <div class="table-responsive pending-bounce-cheque">
                                                 <table class="table gray font-10 table-bordered">
                                                     <thead>
 
@@ -119,5 +119,10 @@
         </div>
     </div>
     </div>
+    <style type="text/css">
+        .pending-bounce-cheque table tr{
+            font-size: 12px;
+        }
+    </style>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 @endsection

@@ -10,8 +10,22 @@
 <script src="{{URL::asset('js/userjs/app.min.js')}}"></script>
 <script src="{{URL::asset('js/userjs/jquery.sparkline.min.js')}}"></script>
 <script src="{{URL::asset('js/userjs/bootstrap-typeahead.js')}}"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+{{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>--}}
+<script src="{{URL::asset('plugins/jquery-datatable/jquery.dataTables.js')}}"></script>
 <script src="{{ URL::asset('plugins/bootstrap-notify/bootstrap-notify.js') }}"></script>
+
+
+@if(isset($page) && $page && $page=='cheque-completed')
+
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/buttons.flash.min.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/jszip.min.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/pdfmake.min.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/vfs_fonts.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/buttons.html5.min.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
+@endif
+
 <script src="{{URL::asset('js/userjs/combo.js')}}"></script>
 <script src="{{URL::asset('js/userjs/userscript.js')}}"></script>
 <script>

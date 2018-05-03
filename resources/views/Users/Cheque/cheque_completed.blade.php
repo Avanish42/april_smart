@@ -182,5 +182,25 @@
 
         </div>
     </div>
-
+    <style type="text/css">
+        .dataTables_wrapper .dt-buttons a.dt-button {
+            background-color: #607D8B;
+            color: #fff;
+            padding: 7px 12px;
+            margin-right: 5px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -ms-border-radius: 2px;
+            border-radius: 2px;
+            border: none;
+            font-size: 13px;
+            outline: none;
+        }
+        .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+            color: #333;
+            padding-top: 20px;
+        }
+    </style>
 @endsection
