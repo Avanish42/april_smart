@@ -272,7 +272,7 @@
                 <form action="{{url('addProduct')}}" method="post">
                 <tr>
                     {{csrf_field()}}
-                    <td><input type="text" name="item_name" required placeholder="Name"></td>
+                    <td><input type="text" name="item_name" class="suggest_product" required placeholder="Name"></td>
                     <td>
                         <select name="item_type" required>
                             <option value="">Please select Type</option>
@@ -322,7 +322,7 @@
                         <form action="{{url('addRetailer')}}" method="post">
                             <tr>
                                 {{csrf_field()}}
-                                <td><input type="text" name="retailer_name" required placeholder="Retailer Name"></td>
+                                <td><input type="text" name="retailer_name" autocomplete="off" class="suggest_retailer_name" required placeholder="Retailer Name"></td>
                                 <td><input type="text" name="beat" required placeholder="Beat"></td>
                                 <td><select name="salesman" required>
                                         <option value="">Select Sales Man</option>

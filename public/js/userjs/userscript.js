@@ -10,24 +10,12 @@ if(status == 100){
         }
     });
 
-    // $('.myElements').each(function() {
-    //     var elem = $(this);
-    //
-    //     // Save current value of element
-    //     elem.data('oldVal', elem.val());
-    //
-    //     // Look for changes in the value
-    //     elem.bind("propertychange change click keyup input paste", function(event){
-    //         // If value has changed...
-    //         if (elem.data('oldVal') != elem.val()) {
-    //             // Updated stored value
-    //             elem.data('oldVal', elem.val());
-    //
-    //             // Do action
-    //         ....
-    //         }
-    //     });
-    // });
+var tempProducts = []
+    for(var i =0;i>products.length;i++){
+            tempProducts.push(products[i].item_name)
+    }
+
+
 
     jQuery.browser = {};
     jQuery.browser.msie = false;
@@ -42,15 +30,18 @@ if(status == 100){
         "bPaginate": true,
         "processing": true,
         "bServerSide": true,
+
         buttons: [
             'copy','csv', 'excel', 'pdf', 'print'
         ],
         dom: 'Blfrtip',
         aoColumnDefs: [
-            {
-                bSortable: false,
+            {  bSortable: false,
                 aTargets: [ 4,5 ]
-            }
+            },
+            { "sClass":"retailer_table","aTargets": [ 1 ] },
+            { "sClass":"cheque_num_table","aTargets": [ 2 ] },
+            { "sClass":"cheque_amt_table","aTargets": [ 5 ] }
         ],
         "lengthMenu": [[100, 200, 500, -1], [100, 200, 500, "All"]],
         "ajax":{
@@ -88,8 +79,14 @@ if(status == 100){
 
     $(document).on('click','#chequeBounce',function () {
             var id = $(this).attr('data-react-id');
+            var retailerName = $(this).parent().parent().find('.retailer_table').text();
+            var chequeNumber= $(this).parent().parent().find('.cheque_num_table').text();
+            var amount = $(this).parent().parent().find('.cheque_amt_table').text();
+
             $('#bounce_cheque_id').val(id)
-            var that = $(this);
+            $('#retailer_name_modal').val(retailerName)
+            $('#cheque_number_modal').val(chequeNumber)
+            $('#cheque_amount_modal').val(amount)
             $('#penalty-modal').modal('show');
     })
 
@@ -197,6 +194,16 @@ if(status == 100){
         //     console.log(item)
         // }
       
+    })
+    $('.suggest_product').typeahead({
+        source:products,
+        displayField: 'item_name'
+
+    })
+    $('.suggest_retailer_name').typeahead({
+        source:retailers,
+        displayField: 'retailer_name'
+
     })
 
     $('.pendingbouncecheque').typeahead({

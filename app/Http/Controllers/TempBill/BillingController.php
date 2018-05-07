@@ -28,9 +28,13 @@ class BillingController extends Controller
         })->get()->toArray();
 
         $products = TempBillItem::all();
+//        $tempproducts = [];
+//        foreach ($products as $product){
+//            array_push($tempproducts,$products->item_name);
+//        }
         $retailers = TempBillRetailer::with('salesMan')->get();
         $invoice_no = 'TEMP-'.Carbon::now()->timestamp;
-      return view('Users.TempBill.tempbill',compact('staff','products','retailers','invoice_no'));
+      return view('Users.TempBill.tempbill',compact('staff','products','retailers','invoice_no','tempproducts'));
 
     }
 

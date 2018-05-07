@@ -67,6 +67,7 @@
                                                         <th>Bill No.</th>
                                                         <th>Reason</th>
                                                         <th>Penalty</th>
+                                                        <th>Due Total</th>
                                                         <th>Remark</th>
                                                         {{--<th>Action</th>--}}
                                                     </tr>
@@ -74,7 +75,9 @@
                                                     <tbody>
                                                     @foreach($acount_entry_cheque as $key_unclear => $value_unclear)
                                                         <tr>
-                                                            @php$penalty = $value_unclear->penalty;@endphp
+                                                            @php$penalty = $value_unclear->penalty;
+                                                            $total = $penalty->amount + $value_unclear->amount
+                                                            @endphp
                                                             <form method="post" action="{{url('/entry-in-acount')}}">
                                                                 {{csrf_field()}}
                                                                 <td>{{date('d-M-Y',strtotime($value_unclear->created_at))}}</td>
@@ -86,6 +89,7 @@
                                                                 <td>{{$value_unclear->billno}}</td>
                                                                 <td>{{$penalty->name}}</td>
                                                                 <td>{{$penalty->amount}}</td>
+                                                                <td>{{$total}}</td>
                                                                 <td> {{$value_unclear->reason}}</td>
                                                                 {{--<td>--}}
                                                                     {{--<input type="hidden" name="bounce_check_id" value="{{$value_unclear->id}}" >--}}

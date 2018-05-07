@@ -144,6 +144,28 @@
                     <form class="form-horizontal" id="penalty-form" method="post" action="{{url('bounce-check-register-penalty')}}">
                         {{csrf_field()}}
                         <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Retailer Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled class="form-control" id="retailer_name_modal">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Cheque Number:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled class="form-control" id="cheque_number_modal">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Cheque Amount:</label>
+                            <div class="col-sm-10">
+                                <input type="text" disabled class="form-control" id="cheque_amount_modal">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-sm-2" for="email">Reason<span style="color: red">*</span>:</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="penaltySelect" name="penalty_id">
@@ -183,6 +205,9 @@
         </div>
     </div>
     <style type="text/css">
+        input[type="text"]:disabled {
+            background: #98a4b826;
+        }
         .dataTables_wrapper .dt-buttons a.dt-button {
             background-color: #607D8B;
             color: #fff;
