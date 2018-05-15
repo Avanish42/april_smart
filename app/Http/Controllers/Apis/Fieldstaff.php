@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apis;
 
 use App\Billproduct;
 use App\ChequeRegisterModel;
+use App\Http\Controllers\Controller;
 use App\model\Bill;
 use App\model\CashCollection;
 use App\User;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Response;
 use Carbon\Carbon;
 
-class Fieldstaff extends Model
+class Fieldstaff extends Controller
 {
 
 

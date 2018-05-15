@@ -44,6 +44,8 @@
     <script src="{{URL::asset('js/userjs/app.module.js')}}"></script>
     <script src="{{URL::asset('js/userjs/app.tempbills.service.js')}}"></script>
     <script src="{{URL::asset('js/userjs/app.tempbills.controller.js')}}"></script>
+    <script src="{{URL::asset('js/userjs/app.addpurchase.controller.js')}}"></script>
+    <script src="{{URL::asset('js/userjs/app.salereturn.controller.js')}}"></script>
 
 
 

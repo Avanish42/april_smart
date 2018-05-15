@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Billproduct;
+use App\Model\TempBill;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -83,7 +84,7 @@ class BillController extends Controller
 
             $Passbillsdata= Bill::select('billNo')->where('allocationNo','!=','')->get();
             $uncleared_check_with_penalty = BounceChequeAllocation::select('cheque_number')->where('isAllocated',0)->where('isPast',0)->get();
-
+            $temporary_bill = TempBill::select('invoice_no')->where('allocationNo',null)->orWhere('allocationNo','')->get();
             $UnallocatedBills=array();$UnallocatedCheques=array();
             foreach ($Unallocateddata as $k=>$v)
             {
@@ -99,7 +100,7 @@ class BillController extends Controller
             {
                 array_push($pastallocationBills,$v->billNo);
             }
-            return view('Users.Manager.allocation', compact('staff', 'currentSupply','UnallocatedBills','pastallocationBills','pastSupply','UnallocatedCheques'));
+            return view('Users.Manager.allocation', compact('staff', 'currentSupply','UnallocatedBills','pastallocationBills','pastSupply','UnallocatedCheques','temporary_bill'));
             }
             else {
             return redirect('manager-dashboard');
@@ -108,14 +109,91 @@ class BillController extends Controller
 
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * Bounce Check Allocation
+     */
+    public function bounceCheckAllocation(Request $request){
+        $temp_data = $request->all();
+        $bounce_check = $request->bounce_cheque;
+        $alocationno = $request->allocationno;
+        if($request->bounce_cheque == '' || $request->bounce_cheque == null){
+            return Response::json(['code' => 400,'message' => 'Please select cheque']);
+        }
+        unset($temp_data['_token']);
+        unset($temp_data['bounce_cheque']);
+        unset($temp_data['allocationno']);
+        if(count($temp_data) == 0){
+            return Response::json(['code' => 400,'message' => 'Please select employee to allocated cheque']);
+        }
+
+        $check = BounceChequeAllocation::where('cheque_number',$bounce_check)->first();
+        if($check== null){
+            return Response::json(['code' => 400,'message' => 'Entered check number not found please enter valid bounce regitered check number']);
+        }
+
+         $check->allocationNo = $alocationno;
+         $check->save();
+        foreach ($temp_data as $value){
+            $savearray = [
+                'user_id' => $value,
+                'bounce_cheque_allocation_id' => $check->id,
+                'created_at' => Carbon::now()
+            ];
+
+            $insert = DB::table('user_cheque')->insert($savearray);
+        }
+
+        $bounce_check_allocations = BounceChequeAllocation::where('allocationNo',$alocationno)->with('bank')->with('penalty')->get();
+        return Response::json(View::make('Users.Manager.partialbouncechequeallocation', array('bounce_check_allocations' => $bounce_check_allocations))->render());
+    }
+
+
+    public function temporaryBillAllocation(Request $request){
+
+        $temp_data = $request->all();
+        $temp_bill = $request->temp_bill;
+        $alocationno = $request->allocationno;
+        if($request->temp_bill == '' || $request->temp_bill == null){
+            return Response::json(['code' => 400,'message' => 'Please select any temporary bill']);
+        }
+        unset($temp_data['_token']);
+        unset($temp_data['temp_bill']);
+        unset($temp_data['allocationno']);
+        if(count($temp_data) == 0){
+            return Response::json(['code' => 400,'message' => 'Please select employee to allocated cheque']);
+        }
+
+        $check = TempBill::where('invoice_no',$temp_bill)->first();
+        if($check== null){
+            return Response::json(['code' => 400,'message' => 'Entered Tempbill number not found please enter valid Temporary Bill number']);
+        }
+
+        $check->allocationNo = $alocationno;
+        $check->save();
+        foreach ($temp_data as $value){
+            $savearray = [
+                'user_id' => $value,
+                'tempbill_id' => $check->id,
+                'created_at' => Carbon::now()
+            ];
+
+            $insert = DB::table('user_tempbill')->insert($savearray);
+        }
+
+        $tempbills = TempBill::where('allocationNo',$alocationno)->with('retailer')->get();
+        return Response::json(View::make('Users.Manager.tempbillallocation', array('tempbills' => $tempbills))->render());
+
+    }
     /**
      * @param Request $request
      * @return mixed
      */
     public function allocateBillsByAjax(Request $request)
     {
-
-                $temp_data = $request->all();
+        $temp_data = $request->all();
 
         unset($temp_data['_token']);
 
@@ -207,12 +285,10 @@ class BillController extends Controller
         }
 
 
-//        return $request->json();
-
     }
     public function removeCurrentAllocationByAjax(Request $request)
     {
-//                    dd($request->all());
+
 
                 $temp_data=$request->all();
                // echo $temp_data['id'];
@@ -439,15 +515,13 @@ class BillController extends Controller
 
     public function searchBill(Request $request)
     {
-//        dd($request->toArray());
+
 
         $billdata = Bill::where('billNo', $request->BillNo)->with('field')->get();
          $billproduct=Billproduct::where('salesInvoiceNumber', $request->BillNo)->get();
-//            dd($billdata->toArray());
+
         if ($billdata) {
             return view('Users.Cashier.findBills', compact('billdata','billproduct'));
-
-            //           return back()->with('status', 100)->with('message', 'Allocation Found');
         } else {
             return back()->with('status', 400)->with('message', 'Bill No Not Found.');
         }
@@ -460,12 +534,6 @@ class BillController extends Controller
 
         $temp_data = $request->all();
 
-//        dd($request->toArray());
-//        echo $temp_data['_token'];
-//        unset($temp_data['_token']);
-
-
-
         if ($request->hasFile('sheet')) {
 
             $uploadedBillno="";
@@ -476,32 +544,24 @@ class BillController extends Controller
 
             if (!empty($data) && $data->count()) {
 
-
-//        dd($data->toArray());
                 $i = 0;
                 foreach ($data->toArray() as $key => $v) {
                     if (!empty($v)) {
 
 
-                        //foreach ($value as $k => $v) {
-
-                           // if ($v['bill_number'] >= $billTo && $v['bill_number'] <= $billfrom) {
 
                                 $bill = new Bill();
                                 $bill->allocationNo = "";
-                                //print_r($value);
-                                //die();
 
                             $bill->billNo = $v['bill_number'];
                             if(Bill::where('billNo',$bill->billNo)->first())
                             {
-                              //  array_push($uploadedBillno,$bill->billNo);
                                 $uploadedBillno.=" ".$bill->billNo."<br>";
                                 continue;
                             }
 
                                 $bill->retailerName = $v['retailer_name'];
-                                //  $bill->todayCollection= $v['bill_number'];
+
                                 $bill->delivaryStatus = $v['delivery_status'];
                                 $bill->salesMan = $v['salesman'];
                                 $bill->retailerHierarchy = $v['retailer_hierarchy_1'];
@@ -521,42 +581,10 @@ class BillController extends Controller
                                 $bill->created_at = Carbon::now();
                                 $bill->updated_at = null;
                                 $bill->save();
-//                                foreach ($temp_data as $emp => $valemp) {
-//
-//                                    $savearray = [
-//                                        'user_id' => $valemp,
-//                                        'bill_id' => $bill->id,
-//                                        'created_at' => Carbon::now()
-//                                    ];
-
-//                                                    echo "<pre>";
-//                                                    print_r($savearray);
-                                  //  $insert = DB::table('user_bill')->insert($savearray);
-
-
-
-
-
-                        //}
-
-
-
-
                     }
                 }
-                //   Session::forget('allocationno');
-//                        $staff= User::whereHas('roles', function($q)
-//                        {
-//                            $q->where('name', 'field');
-//                        })->get()->toArray();
-
-//                        $currentSupply = Bill::where('allocationNo',$allocationno)->get();
-//                        dd($currentSupply);
-//                return redirect('uploadbill');
                 return back()->with('status', 100)->with('message', 'Successfully but these bill no alredy exists .'.$uploadedBillno);
 
-//                        return view('Users.Manager.allocation',compact('staff','currentSupply'));
-//                        return back()->with('status', 100)    ->with('message', 'Bill allocated successfully');
             }
 
 
@@ -576,11 +604,7 @@ class BillController extends Controller
     {
 
         $temp_data = $request->all();
-//            dd($temp_data);
         echo "<pre>";
-//        dd($request->toArray());
-//        echo $temp_data['_token'];
-//        unset($temp_data['_token']);
 
 
 
@@ -706,14 +730,9 @@ class BillController extends Controller
     {
        $billdata= Bill::select('billNo')->distinct()->get();
 
-       //   return view('Users.Cashier.findBills', compact('billdata'));
-
         return Response::json($billdata);
 
 
     }
-
-
-
 
 }

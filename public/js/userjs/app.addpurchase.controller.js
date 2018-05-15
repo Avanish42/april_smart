@@ -1,52 +1,12 @@
 (function () {
     "use strict";
     var secretEmptyKey = '[$empty$]'
-
     angular
         .module('app')
-        .directive('emptyTypeahead',emptyTypeahead);
-    emptyTypeahead.$inject=['$parse'];
+        .controller('addpurchase',addpurchase);
+    addpurchase.$inject=['httpService','$scope','$compile','$timeout','$http','$window']
 
-    function emptyTypeahead(){
-        return {
-            require: 'ngModel',
-            link: function (scope, element, attrs, modelCtrl) {
-                // this parser run before typeahead's parser
-                modelCtrl.$parsers.unshift(function (inputValue) {
-                    var value = (inputValue ? inputValue : secretEmptyKey); // replace empty string with secretEmptyKey to bypass typeahead-min-length check
-                    modelCtrl.$viewValue = value; // this $viewValue must match the inputValue pass to typehead directive
-                    return value;
-                });
-
-                // this parser run after typeahead's parser
-                modelCtrl.$parsers.push(function (inputValue) {
-                    return inputValue === secretEmptyKey ? '' : inputValue; // set the secretEmptyKey back to empty string
-                });
-            }
-        }
-    }
-    angular
-        .module('app')
-        .directive('formOnChange',formOnChange);
-    formOnChange.$inject=['$parse'];
-    function formOnChange($parse) {
-        return {
-            require: "form",
-            link: function(scope, element, attrs,form){
-                var cb = $parse(attrs.formOnChange);
-                element.on("change", function(){
-                    cb(scope);
-                });
-            }
-        }
-    }
-
-    angular
-        .module('app')
-        .controller('tempBill',tempBill);
-    tempBill.$inject=['httpService','$scope','$compile','$timeout','$http','$window']
-
-    function tempBill(httpService,$scope,$compile,$timeout,$http,$window)
+    function addpurchase(httpService,$scope,$compile,$timeout,$http,$window)
     {
 
         var vm=this;
@@ -71,7 +31,7 @@
                 'is_complete':false
             },
 
-         }
+        }
         vm.submitBill = submitBill;
         vm.retailerchange = retailerchange
 
@@ -80,33 +40,33 @@
                 alertNotify('Retailer is required');
                 return false;
             }
-             if ($window.confirm("Are you sure the bill is fully completed")) {
-                 var last = Object.keys(vm.bills)[Object.keys(vm.bills).length-1];
+            if ($window.confirm("Are you sure the bill is fully completed")) {
+                var last = Object.keys(vm.bills)[Object.keys(vm.bills).length-1];
                 for (var x in vm.bills) {
-                     if(x == last && x != 0){
+                    if(x == last && x != 0){
                         break;
-                     }
-                     else{
-                         if(!validateRow(vm.bills[x],x)){
-                             alertNotify('Invalid Bill seems like you have in-complete row in bill')
-                             return false;
-                         }
-                     }
-                 }
-                 deleteLastRow();
-                 vm.bills.retailer = vm.billretailer;
-                 vm.bills.invoice = vm.incvoice;
-                 vm.bills.totalAmount = vm.totalAmount;
+                    }
+                    else{
+                        if(!validateRow(vm.bills[x],x)){
+                            alertNotify('Invalid Bill seems like you have in-complete row in bill')
+                            return false;
+                        }
+                    }
+                }
+                deleteLastRow();
+                vm.bills.retailer = vm.billretailer;
+                vm.bills.invoice = vm.incvoice;
+                vm.bills.totalAmount = vm.totalAmount;
 
-                 $scope.tempbillpost = httpService.sendPostjson(vm.bills,APP_URL+'/tempbill-post');
-                 $scope.tempbillpost.then(function (response) {
-                     if(response.data.code == 100){
-                         alertNotify(response.data.message);
-                         location.reload();
-                     }
-                 })
+                $scope.tempbillpost = httpService.sendPostjson(vm.bills,APP_URL+'/add-purchase');
+                $scope.tempbillpost.then(function (response) {
+                    if(response.data.code == 100){
+                        alertNotify(response.data.message);
+                        location.reload();
+                    }
+                })
 
-             }
+            }
 
 
         }
@@ -140,13 +100,13 @@
                 });
         }
         function deleteLastRow() {
-           var lastIndex = Object.keys(vm.bills)[Object.keys(vm.bills).length-1];
-           if(lastIndex == 0){
+            var lastIndex = Object.keys(vm.bills)[Object.keys(vm.bills).length-1];
+            if(lastIndex == 0){
                 return false;
-           }
-           else{
+            }
+            else{
                 delete vm.bills[lastIndex];
-           }
+            }
         }
         function validateLastRow(bill){
 
@@ -159,15 +119,15 @@
             }
         }
 
-             $scope.formChangeE = function (bill,key) {
-                    if(validateRow(bill,key)){
-                        calculateProductAmount(bill,key)
-                        calculateTotal()
-                        if(checkForAppendRow()){
-                            appendNewRow()
-                        }
-                    }
-             }
+        $scope.formChangeE = function (bill,key) {
+            if(validateRow(bill,key)){
+                calculateProductAmount(bill,key)
+                calculateTotal()
+                if(checkForAppendRow()){
+                    appendNewRow()
+                }
+            }
+        }
 
         $scope.formChangeEPro = function (bill,key) {
 
@@ -188,7 +148,7 @@
                 }
             }
         }
-        
+
         function calculateTotal() {
             var total = 0;
             angular.forEach(vm.bills,function (value,key) {
@@ -203,7 +163,7 @@
                 'sno':++incrementval,
                 'products':undefined,
                 'pcsboxincase':'',
-                 'mrp':'',
+                'mrp':'',
                 'quantity':'',
                 'units':'',
                 'rate':'',
@@ -214,15 +174,15 @@
             }
         }
 
-             function checkForAppendRow() {
-                 var appendRow = true;
-                 angular.forEach(vm.bills,function (value,key) {
-                     if(!value.is_complete){
-                         appendRow = false
-                     }
-                 });
-                 return appendRow;
-             }
+        function checkForAppendRow() {
+            var appendRow = true;
+            angular.forEach(vm.bills,function (value,key) {
+                if(!value.is_complete){
+                    appendRow = false
+                }
+            });
+            return appendRow;
+        }
 
         function calculateProductAmount(bill,key) {
             var noOfPiece;
@@ -245,18 +205,17 @@
             bill.amount = noOfPiece * perPicPrice;
             bill.is_complete = true;
             return true;
-         }
+        }
 
-           function validateRow(bill,key){
-                if(bill.products == undefined || bill.mrp == '' || bill.pcsboxincase == '' || bill.per == '' || bill.quantity == '' || bill.rate == '' || bill.mrp < 0 || bill.pcsboxincase < 0 || bill.per < 0 || bill.quantity < 0 || bill.rate < 0){
-                    bill.is_complete = false;
-                     return false;
-                }
-                else{
-
-                    return true;
-                }
-              }
+        function validateRow(bill,key){
+            if(bill.products == undefined || bill.mrp == '' || bill.pcsboxincase == '' || bill.per == '' || bill.quantity == '' || bill.rate == '' || bill.mrp < 0 || bill.pcsboxincase < 0 || bill.per < 0 || bill.quantity < 0 || bill.rate < 0){
+                bill.is_complete = false;
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
 
 
 
