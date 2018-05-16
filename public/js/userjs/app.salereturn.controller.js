@@ -197,9 +197,11 @@
         }
 
         $scope.formChangeE = function (bill,key) {
+            console.log(validateRow(bill,key));
            if(validateRow(bill,key)){
                 calculateProductAmount(bill,key)
                 calculateTotal()
+               console.log(checkForAppendRow());
                 if(checkForAppendRow()){
                     var billarray = $.map(vm.bills, function(value, index) {
                         return [value];
@@ -207,6 +209,8 @@
                     var salesarray = $.map(vm.salesreturn, function(value, index) {
                         return [value];
                     });
+                    console.log('bills',billarray);
+                    console.log('sales',salesarray);
                  if(salesarray.length < billarray.length){
                         appendNewRow()
                     }
@@ -370,7 +374,7 @@
         }
 
         function validateRow(bill,key){
-            if(bill.products == undefined || bill.mrp == '' || bill.pcsboxincase == '' || bill.per == '' || bill.quantity == '' || bill.rate == '' || bill.mrp < 0 || bill.pcsboxincase < 0 || bill.per < 0 ||  bill.quantity == null || bill.rate < 0){
+            if(bill.products == undefined ||  bill.quantity == null){
                 bill.is_complete = false;
                 return false;
             }
