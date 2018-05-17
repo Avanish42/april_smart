@@ -39,7 +39,9 @@ var bankName = [];
 var unallocatedcheques = [];
 var products = [];
 var retailers = [];
+var temporaryBills = [];
 var tempInvoice = '';
+var salesreturntempbill = [];
 </script>
 @if(isset($UnallocatedCheques))
     <script type="text/javascript">
@@ -84,6 +86,16 @@ var tempInvoice = '';
 @if(isset($invoice_no))
     <script type="text/javascript">
         tempInvoice = {!! json_encode($invoice_no) !!}
+    </script>
+@endif
+@if(isset($temporary_bill))
+    <script type="text/javascript">
+        temporaryBills = {!! json_encode($temporary_bill) !!}
+    </script>
+@endif
+@if(isset($salesreturntempbill))
+    <script type="text/javascript">
+        salesreturntempbill = {!! json_encode($salesreturntempbill) !!}
     </script>
 @endif
 

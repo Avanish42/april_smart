@@ -88,6 +88,7 @@ class BounceChequeRegister extends Controller
             'amount' => $cheque->amount,
             'billno' => $cheque->billno,
             'bill_allocation_no' => $cheque->allocationNo,
+            'penalty_id' => $request->penalty_id,
             'created_at' => Carbon::now()
         ];
 

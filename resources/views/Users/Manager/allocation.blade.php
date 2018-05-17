@@ -276,7 +276,7 @@
 
                                                             </tr>
 
-                                                            <tr class="gray">
+                                                            <tr class="gray" id="bounceChequeAllocationId">
                                                                 <th>S No.</th>
                                                                 <th>Cheque No.</th>
                                                                 <th>Cheque Date</th>
@@ -289,33 +289,6 @@
                                                                 <th>Remark</th>
                                                             </tr>
 
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>123456</td>
-                                                                <td>2-Jul-17</td>
-                                                                <td>Baba Sales</td>
-                                                                <td>12,243 </td>
-                                                                <td>250</td>
-                                                                <td>2,213 </td>
-                                                                <td>10,280 </td>
-                                                                <td>-</td>
-                                                                <td>x</td>
-
-
-                                                            </tr>
-                                                            <tr class="odd">
-                                                                <td>2</td>
-                                                                <td>3344567</td>
-                                                                <td>22-Aug-17</td>
-                                                                <td>Krishna Sales</td>
-                                                                <td>2,341</td>
-                                                                <td>250</td>
-                                                                <td>-</td>
-                                                                <td>2,549</td>
-                                                                <td>-</td>
-                                                                <td>x</td>
-
-                                                            </tr>
 
                                                         </table>
                                                     </div>
@@ -328,7 +301,7 @@
                                                                 <td colspan="10">Temporary Bills</td>
                                                             </tr>
 
-                                                            <tr class="gray">
+                                                            <tr class="gray" id="allocatedtemporarybills">
                                                                 <th>S No.</th>
                                                                 <th>Bill No.</th>
                                                                 <th>Bill Date</th>
@@ -341,45 +314,7 @@
                                                                 <th>Remark</th>
                                                             </tr>
 
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>NS1812345324</td>
-                                                                <td>2-Aug-17</td>
-                                                                <td>Baba Sales</td>
-                                                                <td>10,000</td>
-                                                                <td>200</td>
-                                                                <td>2000</td>
-                                                                <td>8,200</td>
-                                                                <td>-</td>
-                                                                <td>x</td>
 
-                                                            </tr>
-                                                            <tr class="odd">
-                                                                <td>2</td>
-                                                                <td>NS1812345324</td>
-                                                                <td>22-Aug-17</td>
-                                                                <td>Krishna Sales</td>
-                                                                <td>5,000</td>
-                                                                <td>500</td>
-                                                                <td>1000</td>
-                                                                <td>4,500</td>
-                                                                <td>-</td>
-                                                                <td>x</td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>NS1812345455</td>
-                                                                <td>12-Aug-17</td>
-                                                                <td>Sai Sales</td>
-                                                                <td>15,345</td>
-                                                                <td>-</td>
-                                                                <td>5,000</td>
-                                                                <td>10,345</td>
-                                                                <td>-</td>
-                                                                <td>x</td>
-
-                                                            </tr>
                                                         </table>
                                                     </div>
 
@@ -471,15 +406,42 @@
                                                             <input type="hidden" name="allocationno" value="{{session()->get( 'allocationno' )}}">
                                                         </div>
 
-                                                        <tr><td colspan="2"><input id="Text15" class="pendingbouncecheque pastallocationtext" name="bounce_cheque" autocomplete="off" type="text" /></td></tr>
+                                                        <tr><td colspan="2"><input id="Text15" class="pendingbouncecheque"  name="bounce_cheque" autocomplete="off" type="text" /></td></tr>
 
                                                         <tr>
-                                                            {{--<td><input id="Text18" class="pastallocation" type="text" /></td>--}}
                                                             <td><button class="btn btn-success btn-sm bounceallocation">Add Cheque</button></td>
                                                         </tr>
                                                         <thead>
                                                         <tr>
                                                             <th class="text-xs-center" colspan="2">Bounce Cheque Allocation</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+
+                                            </div>
+
+                                            <div class="table-responsive">
+                                                <form class="temporarybillallocationform" method="post">
+                                                    {{csrf_field()}}
+
+                                                    <table class="table gray font-10 m-b-10">
+
+                                                        <div class="hidden-employee">
+                                                            <input type="hidden" name="allocationno" value="{{session()->get( 'allocationno' )}}">
+                                                        </div>
+
+                                                        <tr><td colspan="2"><input id="Text18" class="temporybillsuggest" name="temp_bill" autocomplete="off" type="text" /></td></tr>
+
+                                                        <tr>
+                                                            <td><button class="btn btn-success btn-sm allocateTempBill">Add Bill</button></td>
+                                                        </tr>
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-xs-center" colspan="2">Temporary Bill Allocation</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>

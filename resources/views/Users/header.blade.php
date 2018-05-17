@@ -266,6 +266,7 @@
                     <li><a href="#" data-toggle="dropdown" class="dropdown-item">Product & Salesmen Wise</a></li>
                     <li><a href="#" data-toggle="dropdown" class="dropdown-item">Retailerwise Balances</a></li>
                     <li><a href="{{url('/printBills')}}"  data-toggle="dropdown" class="dropdown-item">Search Bills</a></li>
+                    <li><a href="{{url('/add-purchase')}}" data-toggle="dropdown" class="dropdown-item">Add Purchase</a></li>
                 </ul>
             </li>
             <li data-menu="dropdown" class="dropdown nav-item"><a href="#" data-toggle="dropdown" class="dropdown-toggle nav-link"><i class="ft-layout"></i><span>Cheque Detail</span></a>

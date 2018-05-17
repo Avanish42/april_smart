@@ -1,5 +1,34 @@
 $(document).ready(function() {
 
+$('#suggestInvoice').focus(function () {
+    $('#error_invoice').hide();
+})
+
+    $("#suggestInvoice").typeahead({
+        onSelect: function(item) {
+           $('#redirect_slug').attr('data-react-slug' ,item.text);
+        },
+        ajax: {
+            url: APP_URL+"/search-temporary-bill",
+            timeout: 500,
+            displayField: "invoice_no",
+            triggerLength: 1,
+            method: "get",
+            loadingClass: "loading-circle",
+
+        }
+    });
+    $(document).on('click','#redirect_slug',function () {
+        var slug = $(this).attr('data-react-slug');
+        if(slug == ''){
+            $('#error_invoice').show();
+        }
+        else{
+            window.location.href = APP_URL+'/temporary-bill/'+slug
+        }
+    });
+
+
 if(status == 100){
     alertNotify(message);
 }
@@ -205,6 +234,11 @@ var tempProducts = []
         displayField: 'retailer_name'
 
     })
+    $('.temporybillsuggest').typeahead({
+        source:temporaryBills,
+        displayField: 'invoice_no'
+
+    })
 
     $('.pendingbouncecheque').typeahead({
         source: unallocatedcheques
@@ -273,7 +307,97 @@ var tempProducts = []
 
     });
 
-function alertNotify(message){
+    $(document).on('click', '.bounceallocation', function (e) {
+
+        // console.log('pastallocationform');
+        e.preventDefault();
+        $('.loading').css("display", 'block');
+
+        var formpastData = $('.bouncechequeallocationform').serialize();
+        //console.log(formpastData);
+        //  return false;
+
+        $.ajax({
+            url: APP_URL + "/bounce-check-allocation",
+            type: "post",
+            data: formpastData,
+            success: function (resultData) {
+                if (resultData.code == 400) {
+                    alertNotify(resultData.message);
+                }
+                else {
+                    $('#bounceChequeAllocationId').nextAll().remove();
+                    $('#bounceChequeAllocationId').after(resultData);
+                    $('.pendingbouncecheque').val('');
+                }
+
+
+                $('.loading').css("display", 'none');
+            }
+        });//ajax end
+    });
+
+    $(document).on('click', '.allocateTempBill', function (e) {
+
+        // console.log('pastallocationform');
+        e.preventDefault();
+        $('.loading').css("display", 'block');
+
+        var formpastData = $('.temporarybillallocationform').serialize();
+        //console.log(formpastData);
+        //  return false;
+
+        $.ajax({
+            url: APP_URL + "/temporary-bill-allocation",
+            type: "post",
+            data: formpastData,
+            success: function (resultData) {
+                if (resultData.code == 400) {
+                    alertNotify(resultData.message);
+                }
+                else {
+                    $('#allocatedtemporarybills').nextAll().remove();
+                    $('#allocatedtemporarybills').after(resultData);
+                    $('.temporybillsuggest').val('');
+                }
+
+
+                $('.loading').css("display", 'none');
+            }
+        });//ajax end
+    });
+
+    $('.allocatebouncecheque').click(function (e) {
+        e.preventDefault();
+        $('.loading').css("display", 'block');
+
+        var formData = $('.bouncechequeallocationform').serialize();
+
+
+        // console.log(formData);
+        $.ajax({
+                url: APP_URL + "/bounce-check-allocation",
+            type: "post",
+            data: formData,
+            success: function (resultData) {
+             //    if (resultData.code == 400) {
+             //        alertNotify(resultData.message);
+             // }
+             //    else {
+             //        $('#currentSuppluId').nextAll().remove();
+             //        $('#currentSuppluId').after(resultData);
+             //
+             //    }
+                $('.loading').css("display", 'none');
+
+            }
+        });
+        //saveData.error(function() { console.log("error");});
+
+    });
+
+
+    function alertNotify(message){
     $.notify({
             message: message
         },
@@ -337,13 +461,6 @@ function alertNotify(message){
             }
         });
 
-        //
-        // $('.allocationid').click( function (e) {
-        //
-        //        e.preventDefault();
-        //    // var data= $(this).val();
-        //     console.log("test");
-        // });
 
 
     });
@@ -385,42 +502,14 @@ function alertNotify(message){
 
         var data1 = $(this).attr('data-reactid');
         var data2= $(this).attr(('data-reactAllocation'));
-        console.log(data);
+
             return false;
         var data = {
             "_token":token,
             "id": data1,
             'allocation':data2
         }
-        $(document).on('click', '.bounceallocation', function (e) {
 
-            // console.log('pastallocationform');
-            e.preventDefault();
-            $('.loading').css("display", 'block');
-
-            var formpastData = $('.bouncechequeallocationform').serialize();
-            //console.log(formpastData);
-            //  return false;
-
-            $.ajax({
-                url: APP_URL + "/bounce-cheque-allocation",
-                type: "post",
-                data: formpastData,
-                success: function (resultData) {
-                    if (resultData.code == 400) {
-                        alertNotify(resultData.message);
-                    }
-                    else {
-                        $('#pastSupplyId').nextAll().remove();
-                        $('#pastSupplyId').after(resultData);
-
-                    }
-
-
-                    $('.loading').css("display", 'none');
-                }
-            });//ajax end
-        });
 
 
         $.ajax({

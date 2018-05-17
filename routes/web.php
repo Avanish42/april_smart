@@ -14,7 +14,6 @@
 //use App\Http\Controllers\Auth\Auth;
 
 Route::get('/', function () {
-//    return view('auth.login');
     return view('Users.index');
 });
 
@@ -33,12 +32,21 @@ Route::group(['namespace'=>'Apis'], function(){
 
 
 Route::group(['namespace'=>'TempBill'],function(){
+    Route::get('/temporary-bill/{slug}','BillingController@tempBillSaleReturn');
+    Route::post('/temporary-bill-sale-return','BillingController@temporaryBillSaleReturn');
+    Route::get('/search-temporary-bill', 'BillingController@searchTemporaryBill' );
     Route::get('/temp', 'BillingController@index' );
     Route::get('/tempbill', 'BillingController@tempBill');
     Route::post('/tempbill-post', 'BillingController@tempbillPost');
     Route::get('/printBills','BillingController@printBills');
     Route::post('/addProduct','ItemController@addProduct');
     Route::post('/addRetailer','RetailerController@addRetailer');
+
+    //Add purchase
+    Route::get('/add-purchase', 'AddPurchase@index');
+    Route::post('/add-purchase', 'AddPurchase@addPurchaseCreate');
+
+
 });
 
 
@@ -70,12 +78,16 @@ Route::get('cheque_register',function(){
 });
 
 
-
-
+/**
+ * Allocation
+ */
+Route::post('temporary-bill-allocation','Admin\BillController@temporaryBillAllocation');
+Route::post('bounce-check-allocation','Admin\BillController@bounceCheckAllocation');
 Route::post('removePastAllocationByAjax','Admin\BillAjaxController@removePastAllocationByAjax');
 Route::post('send-notification-to-field','Admin\BillAjaxController@sendNotificationToField');
 Route::post('pastAllocateBillsByAjax','Admin\BillAjaxController@addPastAllocationByAjax');
 Route::post('allocateBillsByAjax','Admin\BillController@allocateBillsByAjax');
+
 Route::post('removeCurrentAllocationByAjax','Admin\BillController@removeCurrentAllocationByAjax');
 Route::get('unallocatedBills','Admin\BillController@unallocatedBills');
 Route::post('BillNosearch','Admin\BillController@BillNosearch');
@@ -184,5 +196,3 @@ Route::group(['prefix'=> 'Relation','namespace'=>'Admin'], function(){
 Route::get('/manager', function (){
    return view('Users.index');
 });
-
-

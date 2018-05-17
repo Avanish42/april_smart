@@ -10,7 +10,7 @@
 
     @include('Users.header')
 
-    <div ng-controller="tempBill as vm" class="app-content content container-fluid">
+    <div ng-controller="addpurchase as vm" class="app-content content container-fluid">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-xs-12 mb-2">
@@ -18,9 +18,8 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-xs-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.htm">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Bills Allocation</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Receipts</a></li>
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="{{url('add-purchase')}}">Add Purchase</a></li>
                             </ol>
                         </div>
                     </div>
@@ -31,7 +30,7 @@
                 <section id="basic-form-layouts">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title" id="basic-layout-form">Receipts</h4>
+                            <h4 class="card-title" id="basic-layout-form">Add Purchase</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -55,15 +54,15 @@
                                             </div>
                                         </div>
                                     @endif
-                                        @if(session('status') && session('status') == 100)
-                                            <div class="row">
-                                                <div class="alert alert-success alert-dismissable">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    <strong>Success!</strong> {{session('message')}}
-                                                </div>
-                                            </div>
-                                        @endif
+                                    @if(session('status') && session('status') == 100)
                                         <div class="row">
+                                            <div class="alert alert-success alert-dismissable">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>Success!</strong> {{session('message')}}
+                                            </div>
+                                        </div>
+                                    @endif
+                                    <div class="row">
                                         <div class="col-sm-12">
                                             <div class="row">
 
@@ -81,7 +80,7 @@
                                                 </div>
                                             </div>
 
-                            <br>
+                                            <br>
                                             <div class="col-sm-12">
                                                 <div class="table-responsive">
                                                     <table class="table  light-gray  m-b-10 table-bordered" style="width:80%; margin:auto;">
@@ -97,7 +96,7 @@
                                                                     State Name : Delhi, Code : 07<br>
                                                                     E-Mail : info@kiasales.in</div></td>
                                                             <td colspan="3">Invoice No.<br>
-                                                              <input type="text" disabled="disabled" name="pcs_box_in_cas" ng-model="vm.incvoice"  class="back-set no-border tempbillpcsboxincase"> </td>
+                                                                <input type="text" disabled="disabled" name="pcs_box_in_cas" ng-model="vm.incvoice"  class="back-set no-border tempbillpcsboxincase"> </td>
                                                             <td colspan="3">Dated<br>
                                                                 <strong>{{Carbon\Carbon::parse(Carbon\Carbon::now())->format('d-M-Y')}}</strong></td>
                                                         </tr>
@@ -130,36 +129,36 @@
 
                                                             <form name="billform" novalidate="" form-on-change="change()" >
 
-                                                            <td style="vertical-align:text-top;">@{{bill.sno}}</td>
-                                                            <td style="vertical-align:text-top; text-align:left;">
-                                                                {{--<select  class="itemtempbill tempbillitemselect" ng-options="item as item.item_name for item in bill.products track by item.id"  ng-model="bill.pcsboxincase"  name="tempbill_product">--}}
+                                                                <td style="vertical-align:text-top;">@{{bill.sno}}</td>
+                                                                <td style="vertical-align:text-top; text-align:left;">
+                                                                    {{--<select  class="itemtempbill tempbillitemselect" ng-options="item as item.item_name for item in bill.products track by item.id"  ng-model="bill.pcsboxincase"  name="tempbill_product">--}}
 
-                                                                {{--</select>--}}
+                                                                    {{--</select>--}}
 
-                                                                <input type="text" class="no-border back-set" ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
-                                                               </td>
+                                                                    <input type="text" class="no-border back-set" ng-trim="false" ng-blur="formChangeEPro(bill,key)" ng-model="bill.products" empty-typeahead uib-typeahead="item as item.item_name for item in vm.states | filter:$viewValue:stateComparator" >
+                                                                </td>
 
-                                                            <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" disabled="disabled" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="back-set no-border tempbillpcsboxincase">
-                                                            </td>
-                                                            <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" disabled="disabled" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="back-set no-border mrptempbill">
-                                                            </td></td>
-                                                            <td style="vertical-align:text-top; text-align:right;">
-                                                                <input type="number" name="quantity_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.quantity" style="width: 70px;" class="back-set no-border mrptempbill">
-                                                            </td>
-                                                            <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="back-set unititemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" name="unit_item_type_tempbill">
+                                                                <td style="vertical-align:text-top; text-align:right;">
+                                                                    <input type="number" disabled="disabled" name="pcs_box_in_cas" ng-blur="formChangeE(bill,key)" ng-model="bill.pcsboxincase"  style="width: 70px;" class="back-set no-border tempbillpcsboxincase">
+                                                                </td>
+                                                                <td style="vertical-align:text-top; text-align:right;">
+                                                                    <input type="number" disabled="disabled" name="mrp_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.mrp" style="width: 70px;" class="back-set no-border mrptempbill">
+                                                                </td></td>
+                                                                <td style="vertical-align:text-top; text-align:right;">
+                                                                    <input type="number" name="quantity_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.quantity" style="width: 70px;" class="back-set no-border mrptempbill">
+                                                                </td>
+                                                                <td style="vertical-align:text-top; text-align:right;">
+                                                                    <select class="back-set unititemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.units"  ng-options="item for item in vm.piecesBox" name="unit_item_type_tempbill">
 
-                                                                </select>
-                                                            </td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate" style="width: 70px;" class="back-set no-border ratetempbill"></td>
-                                                            <td style="vertical-align:text-top; text-align:right;">
-                                                                <select class="back-set rateitemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.per" ng-options="item for item in vm.piecesBox" class="no-border" name="per_item_type_tempbill">
+                                                                    </select>
+                                                                </td>
+                                                                <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_tempbill" ng-blur="formChangeE(bill,key)" ng-model="bill.rate" style="width: 70px;" class="back-set no-border ratetempbill"></td>
+                                                                <td style="vertical-align:text-top; text-align:right;">
+                                                                    <select class="back-set rateitemtypetempbill no-border" ng-change="formChangeE(bill,key)" ng-model="bill.per" ng-options="item for item in vm.piecesBox" class="no-border" name="per_item_type_tempbill">
 
-                                                                </select></td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_per_tempbill" ng-blur="formChangeE(bill,key)" disabled="disabled" ng-model="bill.rate_per_piece" class="no-border ratepertempbill"></td>
-                                                            <td style="vertical-align:text-top; text-align:right;"><input type="number" name="amount_tempbill" ng-model="bill.amount"  disabled="disabled" class="no-border amounttempbill">/-</td>
+                                                                    </select></td>
+                                                                <td style="vertical-align:text-top; text-align:right;"><input type="number" name="rate_per_tempbill" ng-blur="formChangeE(bill,key)" disabled="disabled" ng-model="bill.rate_per_piece" class="no-border ratepertempbill"></td>
+                                                                <td style="vertical-align:text-top; text-align:right;"><input type="number" name="amount_tempbill" ng-model="bill.amount"  disabled="disabled" class="no-border amounttempbill">/-</td>
 
                                                             </form>
                                                         </tr>
@@ -194,7 +193,6 @@
 
 
                                             </div>
-
                                         </div>
 
 
@@ -229,87 +227,39 @@
         <div class="modal-dialog">
 
             <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add New Product</h4>
-        </div>
-        <div class="table-responsive">
-            <table class="table mb-0 font-10 light-gray ">
-
-                <tr class="head">
-                    <td colspan="5"><div align="center">Add Product</div></td>
-                </tr>
-
-                <tr class="gray">
-                    <th>Product Name</th>
-                    <th>Product Configuration</th>
-                    <th>Pcs or Box per Case</th>
-                    <th>MRP</th>
-                    <th>Action</th>
-                </tr>
-                <form action="{{url('addProduct')}}" method="post">
-                <tr>
-                    {{csrf_field()}}
-                    <td><input type="text" name="item_name" class="suggest_product" required placeholder="Name"></td>
-                    <td>
-                        <select name="item_type" required>
-                            <option value="">Please select Type</option>
-                            <option value="pieces">Pieces</option>
-                            <option value="box">Box</option>
-                        </select>
-                    </td>
-                    <td><input type="number" name="item_quantity"></td>
-                    <td><input type="number" required name="item_price"></td>
-                    <td> <input type="submit" value="Save" name="save"> </td>
-                </tr>
-                </form>
-
-            </table>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-
-    </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal_retailer" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add New Retailer</h4>
+                    <h4 class="modal-title">Add New Product</h4>
                 </div>
                 <div class="table-responsive">
-                    <table class="table mb-0 font-10 light-gray  "  >
+                    <table class="table mb-0 font-10 light-gray ">
 
                         <tr class="head">
-                            <td colspan="4"><div align="center">Add Retailer</div></td>
+                            <td colspan="5"><div align="center">Add Product</div></td>
                         </tr>
 
                         <tr class="gray">
-                            <th>Retailer Name</th>
-                            <th>Retailer Beat</th>
-                            <th>Salesman</th>
-                            <th>Save</th>
+                            <th>Product Name</th>
+                            <th>Product Configuration</th>
+                            <th>Pcs or Box per Case</th>
+                            <th>MRP</th>
+                            <th>Action</th>
                         </tr>
-                        <form action="{{url('addRetailer')}}" method="post">
+                        <form action="{{url('addProduct')}}" method="post">
                             <tr>
                                 {{csrf_field()}}
-                                <td><input type="text" name="retailer_name" autocomplete="off" class="suggest_retailer_name" required placeholder="Retailer Name"></td>
-                                <td><input type="text" name="beat" required placeholder="Beat"></td>
-                                <td><select name="salesman" required>
-                                        <option value="">Select Sales Man</option>
-                                        @foreach($staff as $s)
-                                            <option value="{{$s['id']}}">{{$s['name']}}</option>
-                                        @endforeach
-                                    </select></td>
-                                <td> <input type="submit" value=" Save" name="save" > </td>
+                                <td><input type="text" name="item_name" class="suggest_product" required placeholder="Name"></td>
+                                <td>
+                                    <select name="item_type" required>
+                                        <option value="">Please select Type</option>
+                                        <option value="pieces">Pieces</option>
+                                        <option value="box">Box</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" name="item_quantity"></td>
+                                <td><input type="number" required name="item_price"></td>
+                                <td> <input type="submit" value="Save" name="save"> </td>
                             </tr>
                         </form>
 
@@ -319,48 +269,48 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
+
         </div>
     </div>
 
+    <!-- Modal -->
     <div class="modal fade" id="myModal_salereturn" role="dialog">
 
-            <div class="modal-dialog">
+        <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Sale Return Of Teporary Bill</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" method="post">
-                            {{csrf_field()}}
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="pwd">Remark:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" autocomplete="off" id="suggestInvoice" name="remark" placeholder="Search for Temporary Bill">
-                                    <span  id="error_invoice" style="color: red;display: none;">Invalid Temporary bill</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" id="redirect_slug" data-react-slug="" class="btn btn-warning">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Sale Return Of Teporary Bill</h4>
                 </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="post">
+                        {{csrf_field()}}
 
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="pwd">Remark:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="suggestInvoice" autocomplete="off" name="remark" placeholder="Search for Temporary Bill">
+                                <span  id="error_invoice" style="color: red;display: none;">Invalid Temporary bill</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" id="redirect_slug" data-react-slug="" class="btn btn-warning">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
 
+        </div>
+
     </div>
-
-
     <style>
         .custom-combobox {
             position: relative;
