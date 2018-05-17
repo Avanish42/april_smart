@@ -370,6 +370,15 @@
         .back-set{
             background: #80808026;
         }
+        input[type='number'] {
+            -moz-appearance:textfield;
+        }
+        /* Webkit browsers like Safari and Chrome */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
     <script type="text/ng-template" id="customTemplate.html">
         <a>
