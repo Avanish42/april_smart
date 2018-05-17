@@ -70,12 +70,10 @@
 
                                                 <div class="col-sm-12 col-md-12  text-sm-left pull-left">
                                                     <a class="btn btn-info   ">Print & Finalize</a>
-                                                    <a class="btn btn-info active ">Billing</a>
-                                                    <a href="{{url('add-purchase')}}" class="btn btn-info ">Add Purchase</a>
-                                                    <button  style="display: inline" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_salereturn">Add Sale Return</button>
                                                     <a class="btn btn-info ">Just Print</a>
                                                     <a class="btn btn-info ">Just Finalize Bill</a>
-
+                                                    <a href="{{url('add-purchase')}}" class="btn btn-info ">Add Purchase</a>
+                                                    <button  style="display: inline" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_salereturn">Add Sale Return</button>
                                                     <button  style="display: inline" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_product">Add Product</button>
                                                     <button  style="display: inline" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal_retailer">Add Retailer</button>
                                                 </div>
@@ -337,7 +335,7 @@
                             {{csrf_field()}}
 
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="pwd">Remark:</label>
+                                <label class="control-label col-sm-2" for="pwd">Temporary Bill Invoice:</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" autocomplete="off" id="suggestInvoice" name="remark" placeholder="Search for Temporary Bill">
                                     <span  id="error_invoice" style="color: red;display: none;">Invalid Temporary bill</span>

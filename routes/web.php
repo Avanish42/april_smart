@@ -32,9 +32,12 @@ Route::group(['namespace'=>'Apis'], function(){
 
 
 Route::group(['namespace'=>'TempBill'],function(){
-    Route::get('/temporary-bill/{slug}','BillingController@tempBillSaleReturn');
+    Route::get('/temporary-bill/sale-return/{slug}','BillingController@tempBillSaleReturn');
+    Route::get('/temporary-bill/search','BillingController@searchTemporaryBill');
+    Route::get('/temporary-bill/search/{invoice}','BillingController@searchTemporaryBill');
     Route::post('/temporary-bill-sale-return','BillingController@temporaryBillSaleReturn');
-    Route::get('/search-temporary-bill', 'BillingController@searchTemporaryBill' );
+    Route::get('/search-temporary-bill-sale-return', 'BillingController@searchTemporaryBillSaleReturn' );
+    Route::get('/get-all-matched-bill', 'BillingController@getAllMatchedBill' );
     Route::get('/temp', 'BillingController@index' );
     Route::get('/tempbill', 'BillingController@tempBill');
     Route::post('/tempbill-post', 'BillingController@tempbillPost');

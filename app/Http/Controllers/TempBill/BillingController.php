@@ -42,11 +42,24 @@ class BillingController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * Assync Search temp bill
+     * Assync Search temp bill only sale return null
      */
-    public function searchTemporaryBill(Request $request)
+    public function searchTemporaryBillSaleReturn(Request $request)
     {
         $tempbill = TempBill::GetByInvoice($request->input('search'))->SaleReturnNull()->get();
+
+        return Response::json($tempbill);
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *  Assync Search all temp bill
+     */
+    public function getAllMatchedBill(Request $request)
+    {
+        $tempbill = TempBill::GetByInvoice($request->input('search'))->get();
 
         return Response::json($tempbill);
 
@@ -157,17 +170,35 @@ class BillingController extends Controller
 
           $retailers = TempBillRetailer::with('salesMan')->get();
           $salesreturntempbill->supplier_ref = $salesreturntempbill->retailer->salesMan;
-          return view('Users.TempBill.salesreturn', compact('staff', 'products', 'retailers', 'salesreturntempbill'));
+          return view('Users.TempBill.salesreturn', compact('staff', 'products', 'retailers','salesreturntempbill'));
       }
     }
 
-    public function addRetailer()
-    {
+    public function searchTemporaryBill($invoice = null){
+        if($invoice == null){
+            $staff = User::whereHas('roles', function ($q) {
+                $q->where('name', 'field');
+            })->get()->toArray();
+            $products = TempBillItem::all();
+            $retailers = TempBillRetailer::with('salesMan')->get();
+            return view('Users.TempBill.searchbill', compact('staff', 'products', 'retailers', 'salesreturntempbill'));
+        }
+        else{
+            $searchedBill  = TempBill::where('slug',$invoice)->with(['retailer','billProducts','saleReturns'])->first();
+            if($searchedBill == null){
+                return back()->with('status', 100)->with('message', 'Temporary bill not found with this invoice number');
+            }
+            else{
+                $staff = User::whereHas('roles', function ($q) {
+                    $q->where('name', 'field');
+                })->get()->toArray();
+                $products = TempBillItem::all();
+                $retailers = TempBillRetailer::with('salesMan')->get();
+//          dd($searchedBill);
+                return view('Users.TempBill.searchbill', compact('staff', 'products', 'retailers', 'salesreturntempbill','searchedBill'));
+            }
+        }
 
-    }
-
-    public function addProduct()
-    {
 
     }
 
@@ -175,6 +206,7 @@ class BillingController extends Controller
     {
         return view('Users.TempBill.printbill');
     }
+
 
 
 }

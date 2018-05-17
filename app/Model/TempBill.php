@@ -24,6 +24,10 @@ class TempBill extends Model
         return $this->hasMany('App\Model\TempBillProductsDetails','tempbill_id');
     }
 
+    public function saleReturns(){
+        return $this->hasMany('App\Model\TempBillProductSaleReturn','tempbill_id');
+    }
+
     public function scopeGetByInvoice($query,$search){
        return $query->where('invoice_no', 'like', '%' . $search . '%');
     }

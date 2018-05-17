@@ -265,7 +265,7 @@
                     <li><a href="{{url('/tempbill')}}" data-toggle="dropdown" class="dropdown-item">Billing</a></li>
                     <li><a href="#" data-toggle="dropdown" class="dropdown-item">Product & Salesmen Wise</a></li>
                     <li><a href="#" data-toggle="dropdown" class="dropdown-item">Retailerwise Balances</a></li>
-                    <li><a href="{{url('/printBills')}}"  data-toggle="dropdown" class="dropdown-item">Search Bills</a></li>
+                    <li><a href="{{url('/temporary-bill/search')}}"  data-toggle="dropdown" class="dropdown-item">Search Bills</a></li>
                     <li><a href="{{url('/add-purchase')}}" data-toggle="dropdown" class="dropdown-item">Add Purchase</a></li>
                 </ul>
             </li>

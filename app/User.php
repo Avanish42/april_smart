@@ -32,8 +32,16 @@ class User extends Authenticatable
     ];
 
 
-        public function fieldTodayBills(){
+    public function fieldTodayBills(){
         return $this->belongsToMany('App\Model\Bill','user_bill','user_id','bill_id');
+    }
+
+    public function fieldTodayBounceChecks(){
+        return $this->belongsToMany('App\Model\BounceChequeAllocation','user_cheque','user_id','bounce_cheque_allocation_id');
+    }
+
+    public function fieldTodayTemporaryBill(){
+        return $this->belongsToMany('App\Model\TempBill','user_tempbill','user_id','tempbill_id');
     }
 
     public function tempBillRetailers(){

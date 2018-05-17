@@ -3,13 +3,31 @@ $(document).ready(function() {
 $('#suggestInvoice').focus(function () {
     $('#error_invoice').hide();
 })
+$('#selected_tembill').focus(function () {
+    $('#invoice_error').hide();
+})
 
     $("#suggestInvoice").typeahead({
         onSelect: function(item) {
            $('#redirect_slug').attr('data-react-slug' ,item.text);
         },
         ajax: {
-            url: APP_URL+"/search-temporary-bill",
+            url: APP_URL+"/search-temporary-bill-sale-return",
+            timeout: 500,
+            displayField: "invoice_no",
+            triggerLength: 1,
+            method: "get",
+            loadingClass: "loading-circle",
+
+        }
+    });
+
+    $("#selected_tembill").typeahead({
+        onSelect: function(item) {
+           $('#jump_to_searched_bill').attr('data-react-slug-bill' ,item.text);
+        },
+        ajax: {
+            url: APP_URL+"/get-all-matched-bill",
             timeout: 500,
             displayField: "invoice_no",
             triggerLength: 1,
@@ -24,7 +42,17 @@ $('#suggestInvoice').focus(function () {
             $('#error_invoice').show();
         }
         else{
-            window.location.href = APP_URL+'/temporary-bill/'+slug
+            window.location.href = APP_URL+'/temporary-bill/sale-return/'+slug
+        }
+    });
+
+    $(document).on('click','#jump_to_searched_bill',function () {
+        var slugbill = $(this).attr('data-react-slug-bill');
+        if(slugbill == ''){
+            $('#invoice_error').show();
+        }
+        else{
+            window.location.href = APP_URL+'/temporary-bill/search/'+slugbill
         }
     });
 

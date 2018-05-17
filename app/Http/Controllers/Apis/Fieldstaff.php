@@ -66,33 +66,42 @@ class Fieldstaff extends Controller
     public function currentAllocationByDate(Request $request){
 
 //        dd($request->all());
-            $past_bill =   User::find($request->staff_id)->fieldTodayBills()->where('isPast',1)->get();
+            $past_bills =   User::find($request->staff_id)->fieldTodayBills()->where('isPast',1)->get();
             $current_supply =   User::find($request->staff_id)->fieldTodayBills()->where('isPast',0)->get();
+            $bounce_check_allocation_current =   User::find($request->staff_id)->fieldTodayBounceChecks()->with(['penalty','bank'])->where('isPast',0)->get();
+            $bounce_check_allocation_past =   User::find($request->staff_id)->fieldTodayBounceChecks()->with(['penalty','bank'])->where('isPast',1)->get();
+            $current_temporary_bill =   User::find($request->staff_id)->fieldTodayTemporaryBill()->with(['billProducts','saleReturns','retailer'])->get();
 
-                if($current_supply->count() > 0 || $past_bill->count() > 0){
-                    if($past_bill->count() > 0){
-                        $past_bills = $past_bill;
-                    }
-                    else{
-                        $past_bills  = [];
-                    }
+                if($current_supply->count() > 0 || $past_bills->count() > 0 || $bounce_check_allocation_current->count() > 0 || $bounce_check_allocation_past->count() > 0){
+
                         $returndata = [
-                            'current_bills' =>$current_supply,
-                            'past_bills' =>$past_bills
+                            'status' => '1',
+                            'message' => 'Allocations found',
+                            'info' => [
+                                'current_bills' =>$current_supply,
+                                'past_bills' =>$past_bills,
+                                'current_bounce_check' =>$bounce_check_allocation_current,
+                                'past_bounce_check' =>$bounce_check_allocation_past,
+                                'current_temporary_bill' =>$current_temporary_bill,
+                            ]
                         ];
 
-                    $raw_data = array('status' => '1',
-                        'message' => 'Bill found',
-                        "info" => $returndata
-                    );
                 }
                 else{
-                    $raw_data = array('status' => '0',
-                        'message' => 'Currently no bill added to you',
-                        "info" => ""
-                    );
+                    $returndata = [
+                        'status' => '0',
+                        'message' => ' Allocations not found',
+                        'info' => [
+                            'current_bills' =>$current_supply,
+                            'past_bills' =>$past_bills,
+                            'current_bounce_check' =>$bounce_check_allocation_current,
+                            'past_bounce_check' =>$bounce_check_allocation_past,
+                            'current_temporary_bill' =>$current_temporary_bill,
+                        ]
+
+                    ];
                 }
-            return Response::json($raw_data);
+            return Response::json($returndata);
         }
 
         public function updateBillById(Request $request){
