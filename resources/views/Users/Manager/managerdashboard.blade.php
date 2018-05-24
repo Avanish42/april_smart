@@ -10,7 +10,7 @@
 
 
 
-                <div class="text-center">
+    <div class="text-center">
             <h1>Welcome to Manager Dashboard</h1>
 
         <button type="submit" class="btn btn-default"><a href="/create-allocation-no"> <button class="btn btn-lg">Create New Allocation</button> </a></button>
@@ -19,7 +19,8 @@
 
     </div>
     <div >
-        <button type="submit" class="btn btn-default"><a href="javascript:void(0)"> <button class="btn btn-lg">upload The  Sheet </button></a></button>
+
+                <h3 class="btn btn-lg">upload The  Sheet </h3>
 
         <form method="post" action="{{url('/sheetUpload')}}" enctype="multipart/form-data">
             {{csrf_field()}}
@@ -29,11 +30,20 @@
     </div>
 
     <div>
-        <button type="submit" class="btn btn-default"><a href="javascript:void(0)"> <button class="btn btn-lg">upload The  details bills </button></a></button>
+        <h3 class="btn btn-lg">upload The  details bills </h3>
 
         <form method="post" action="{{url('/billDetailsUpload')}}" enctype="multipart/form-data">
             {{csrf_field()}}
             <input  type="file" name="billdetails">
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <div>
+        <h3 class="btn btn-lg">Upload Beat</h3>
+
+        <form method="post" action="{{url('/upload-beat')}}" enctype="multipart/form-data">
+            {{csrf_field()}}
+            <input  type="file" name="beat_file">
             <input type="submit" value="Upload">
         </form>
     </div>

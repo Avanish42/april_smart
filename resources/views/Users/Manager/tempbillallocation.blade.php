@@ -15,7 +15,7 @@
             <td>{{$value_supply->pastCollection	}}</td>
             <td>{{$pending_amount}}</td>
             <td>{{$value_supply->todayCollection}}</td>
-            <td> <span class="allocatedBounceChecks" data-reactid="{{$value_supply->id }}" data-reactAllocation="{{$value_supply->allocationNo }}"  style= 'cursor: pointer '>  x </span></td>
+            <td> <span class="allocatedTempBill" data-reactid="{{$value_supply->id }}" data-reactAllocation="{{$value_supply->allocationNo }}"  style= 'cursor: pointer '>  x </span></td>
         </tr>
     @endforeach
 @endif

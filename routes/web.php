@@ -85,6 +85,7 @@ Route::get('cheque_register',function(){
  * Allocation
  */
 Route::post('temporary-bill-allocation','Admin\BillController@temporaryBillAllocation');
+Route::post('remove-allocated-temp-bill','Admin\BillController@removeAllocatedTempBill');
 Route::post('bounce-check-allocation','Admin\BillController@bounceCheckAllocation');
 Route::post('removePastAllocationByAjax','Admin\BillAjaxController@removePastAllocationByAjax');
 Route::post('send-notification-to-field','Admin\BillAjaxController@sendNotificationToField');
@@ -95,8 +96,9 @@ Route::post('removeCurrentAllocationByAjax','Admin\BillController@removeCurrentA
 Route::get('unallocatedBills','Admin\BillController@unallocatedBills');
 Route::post('BillNosearch','Admin\BillController@BillNosearch');
 
-        Route::post('sheetUpload','Admin\BillController@sheetUpload');
+Route::post('sheetUpload','Admin\BillController@sheetUpload');
 Route::post('billDetailsUpload','Admin\BillController@billDetailsUpload');
+Route::post('upload-beat','Admin\BillController@uploadBeat');
 
 Route::post('authenticate','Auth\LoginController@authenticate');
 

@@ -307,9 +307,6 @@ var tempProducts = []
         $('.loading').css("display", 'block');
         // console.log("click");
 
-        var toValue = $('.toValue').val();
-        var fromValue = $('.fromValue').val();
-        var singleValue = $('.singleValue').val();
         var formData = $('#formData').serialize();
 
 
@@ -323,6 +320,9 @@ var tempProducts = []
                     alertNotify(resultData.message);
              }
                 else {
+                    $('.toValue').val('');
+                    $('.fromValue').val('');
+                    $('.singleValue').val('');
                     $('#currentSuppluId').nextAll().remove();
                     $('#currentSuppluId').after(resultData);
 
@@ -389,10 +389,9 @@ var tempProducts = []
                     $('.temporybillsuggest').val('');
                 }
 
-
                 $('.loading').css("display", 'none');
             }
-        });//ajax end
+        });
     });
 
     $('.allocatebouncecheque').click(function (e) {
@@ -493,9 +492,41 @@ var tempProducts = []
 
     });
 
+    $(document).on('click', '.allocatedTempBill', function () {
+        // console.log("test");
+
+        var data1 = $(this).attr('data-reactid');
+        var data2= $(this).attr(('data-reactAllocation'));
+
+        var data = {
+              "_token":token,
+            "id": data1,
+            'allocation':data2
+        }
+
+         $.ajax({
+            url: APP_URL + "/remove-allocated-temp-bill",
+            type: "post",
+            data: data,
+            success: function (resultData) {
+                if (resultData.code == 400) {
+                    alertNotify(resultData.message);
+                }
+                else {
+                    $('#allocatedtemporarybills').nextAll().remove();
+                    $('#allocatedtemporarybills').after(resultData);
+                    $('.temporybillsuggest').val('');
+                }
+
+
+                $('.loading').css("display", 'none');
+
+            }
+        });
+     });
+
     $(document).on('click', '.pastAllocation', function (e) {
 
-        // console.log('pastallocationform');
             e.preventDefault();
         $('.loading').css("display", 'block');
 
@@ -514,6 +545,7 @@ var tempProducts = []
                 else {
                     $('#pastSupplyId').nextAll().remove();
                     $('#pastSupplyId').after(resultData);
+                    $('.pastallocation').val('');
 
                   }
 
@@ -526,12 +558,11 @@ var tempProducts = []
     });
 
     $(document).on('click', '.allocationidpast', function () {
-        // console.log("test");
 
         var data1 = $(this).attr('data-reactid');
         var data2= $(this).attr(('data-reactAllocation'));
 
-            return false;
+
         var data = {
             "_token":token,
             "id": data1,

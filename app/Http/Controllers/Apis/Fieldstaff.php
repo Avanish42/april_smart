@@ -67,7 +67,13 @@ class Fieldstaff extends Controller
 
 //        dd($request->all());
             $past_bills =   User::find($request->staff_id)->fieldTodayBills()->where('isPast',1)->get();
+                foreach ($past_bills as $value){
+                    $value->bill_products = Billproduct::where('salesInvoiceNumber',$value->billNo)->get();
+                }
             $current_supply =   User::find($request->staff_id)->fieldTodayBills()->where('isPast',0)->get();
+        foreach ($current_supply as $value){
+            $value->bill_products = Billproduct::where('salesInvoiceNumber',$value->billNo)->get();
+        }
             $bounce_check_allocation_current =   User::find($request->staff_id)->fieldTodayBounceChecks()->with(['penalty','bank'])->where('isPast',0)->get();
             $bounce_check_allocation_past =   User::find($request->staff_id)->fieldTodayBounceChecks()->with(['penalty','bank'])->where('isPast',1)->get();
             $current_temporary_bill =   User::find($request->staff_id)->fieldTodayTemporaryBill()->with(['billProducts','saleReturns','retailer'])->get();
